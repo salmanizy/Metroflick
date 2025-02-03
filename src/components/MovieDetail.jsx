@@ -136,43 +136,62 @@ const MovieDetail = () => {
                 ))}      
             </div>     
         
-            <h2 className="mb-3">Similar Movies</h2>       
-            <div className="row mb-5">      
-                {similarMovies.slice(0,6).map((similar) => (        
-                    <div className="col-md-2 col-6 mb-4" key={similar.id}>      
-                        <Link to={`/movie/${similar.id}`} className="card bg-dark">      
-                            <img        
-                                src={similar.poster_path ? `https://image.tmdb.org/t/p/w500${similar.poster_path}` : 'https://fakeimg.pl/500x750/242424/454545?text=No+Image&font=bebas'}  
-                                alt={similar.title}      
-                                className="card-img-top"        
-                            />        
-                            <div className="card-body">      
-                                <p className="card-title text-white text-truncate text-nowrap">      
-                                    {similar.title}      
-                                </p>
-                                <p className="text-white-50">  
-                                    {similar.release_date ? new Date(similar.release_date).getFullYear() : 'Year not available'}  
-                                </p> 
-                            </div>      
-                        </Link>      
-                    </div>      
-                ))}      
-            </div>      
+            <div className="row mb-5">  
+                <h2 className="mb-3">Similar Movies</h2>  
+                {similarMovies.length > 0 ? (
+                    similarMovies.slice(0, 6).map((similar) => (  
+                        <div className="col-md-2 col-6 mb-4" key={similar.id}>  
+                            <Link to={`/tv/${similar.id}`} className="card bg-dark">  
+                                <img  
+                                    src={similar.poster_path ? `https://image.tmdb.org/t/p/w500${similar.poster_path}` : 'https://fakeimg.pl/500x750/242424/454545?text=No+Image&font=bebas'}  
+                                    alt={similar.name}  
+                                    className="card-img-top"  
+                                />
+                                <div className="card-body">  
+                                    <p className="card-title text-white text-truncate text-nowrap">  
+                                        {similar.title}
+                                    </p>
+                                    <p className="text-white-50 font-monospace">  
+                                        {similar.release_date ? new Date(similar.release_date).getFullYear() : 'Year not available'}  
+                                    </p> 
+                                </div>
+                            </Link>  
+                        </div>  
+                    ))  
+                ) : (  
+                    <div className="d-flex justify-content-center">
+                        <div className="alert alert-warning d-flex justify-content-between fs-4 fw-bold" role="alert">
+                            <i className="bi bi-exclamation-triangle me-2"></i>
+                            <p>No similar movies available.</p>
+                        </div>
+                    </div>
+                )}  
+            </div>
+
         
-            <h2>Reviews</h2>        
-            {reviews.length > 0 ? (        
-                <ul>
-                    {reviews.map((review) => (        
-                        <li key={review.id}>
-                            <strong>{review.author}</strong>        
-                            <p>{review.content}</p>        
-                        </li>        
-                    ))}        
-                </ul>        
-            ) : (        
-                <p>No reviews available.</p>        
-            )}        
-        </div>        
+            {reviews.length > 0 ? (
+                <div>
+                <h2>Reviews</h2>
+                {reviews.map((review) => (
+                    <div className="mb-3" key={review.id}>
+                    <div className="card text-bg-dark">
+                        <div className="card-body m-3">
+                        <div className="fw-bold fs-4 text-warning mb-2">@ {review.author}</div>
+                        <p className="card-text" style={{textAlign:"justify"}}>{review.content}</p>
+                        </div>
+                    </div>
+                    </div>
+                ))}
+                </div>
+            ) : (
+                <div className="d-flex justify-content-center">
+                    <div className="alert alert-warning d-flex justify-content-between fs-4 fw-bold" role="alert">
+                        <i className="bi bi-exclamation-triangle me-2"></i>
+                        <p>No Review!</p>
+                    </div>
+                </div>
+            )}
+        </div>
     );        
 };        
         

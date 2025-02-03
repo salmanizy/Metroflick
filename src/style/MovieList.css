@@ -2,7 +2,6 @@
     border: none !important;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     overflow: hidden;
-    box-shadow: 0 0 25px rgba(0, 0, 0, 0.5);
 }
 
 .card-body{
@@ -15,12 +14,6 @@
     text-overflow: ellipsis;
     transition: transform 0.3s ease;
     max-width: 100%;
-}
-
-.card:hover{
-    transform: scale(1.05);
-    border: none !important;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
 }
 
 .category{

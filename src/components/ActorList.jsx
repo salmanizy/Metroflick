@@ -24,7 +24,7 @@ const ActorList = () => {
                 setLoading(false);
             }    
         };    
-        getActors();    
+        getActors();
     }, [currentPage]);
     
     useEffect(() => {  
@@ -72,7 +72,7 @@ const ActorList = () => {
                                                 >    
                                                     {item.title || item.name}    
                                                 </Link>    
-                                                {item.id !== actor.known_for[actor.known_for.length - 2].id && ', '}
+                                                {item.id !== (actor.known_for?.[actor.known_for?.length - 2]?.id ?? null) && ', '}
                                             </span>  
                                         ))   
                                         : 'Known for: Not available'  

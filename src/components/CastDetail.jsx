@@ -105,7 +105,7 @@ const CastDetail = () => {
                                 />    
                                 <div className="card-body">   
                                     <h5 className="card-title text-truncate text-nowrap">{movie.title}</h5>    
-                                    <p className="card-text text-truncate text-nowrap">{movie.release_date ? formatReleaseDate(movie.release_date) : 'Release date not available'}</p>    
+                                    <p className="card-text text-truncate text-white-50 text-nowrap font-monospace">{movie.release_date ? formatReleaseDate(movie.release_date) : 'Release date not available'}</p>    
                                 </div>    
                             </div>   
                         </Link>   
@@ -125,8 +125,8 @@ const CastDetail = () => {
                                     className="card-img-top"      
                                 />      
                                 <div className="card-body">     
-                                    <h5 className="card-title text-truncate text-nowrap">{series.name}</h5>  
-                                    <p className="card-text text-truncate text-nowrap">{series.first_air_date ? formatReleaseDate(series.first_air_date) : 'Release date not available'}</p>   
+                                    <h5 className="card-title text-truncate text-white-50 text-nowrap">{series.name}</h5>  
+                                    <p className="card-text text-truncate text-nowrap font-monospace">{series.first_air_date ? formatReleaseDate(series.first_air_date) : 'Release date not available'}</p>   
                                 </div>      
                             </div>     
                         </Link>     

@@ -1,24 +1,25 @@
-// src/components/MovieList.jsx  
 import { useEffect, useState } from 'react';  
-import { fetchNowShowingMovies, fetchPopularMovies, fetchTopRatedMovies } from '../api/tmdb';  
-import { Link } from 'react-router-dom';
+import { fetchNowShowingMovies, fetchPopularMovies, fetchTopRatedMovies, fetchUpcoming } from '../api/tmdb';
+import Carousel from './Carousell'; // Assuming you have the Carousel component
 import '../style/MovieList.css';
 
-  
 const MovieList = () => {  
     const [popular, setPopular] = useState([]);
-    const [topRated, settopRated] = useState([]);
+    const [topRated, setTopRated] = useState([]);
     const [nowShowing, setNowShowing] = useState([]);
-
-    const [loading, setLoading] = useState(true);  
+    const [upcoming, setUpcoming] = useState([]);
+    const [loading, setLoading] = useState(true); 
 
     useEffect(() => {  
-      const getMovies = async () => {  
-        const popularMovies = await fetchPopularMovies();  
-        setPopular(popularMovies);  
-        setLoading(false);  
-      };  
-      getMovies();  
+        const getMovies = async () => {  
+            try {
+                const popularMovies = await fetchPopularMovies();  
+                setPopular(popularMovies);  
+            } finally {
+                setLoading(false);
+            }
+        };  
+        getMovies();  
     }, []);
 
     useEffect(() => {  
@@ -28,37 +29,47 @@ const MovieList = () => {
     useEffect(() => {  
         const getTopRatedMovies = async () => {  
             try {  
-                const data = await fetchTopRatedMovies(); // Mengambil data menggunakan fungsi yang diimpor  
-                settopRated(data.results); // Mengatur state dengan hasil yang diterima  
-            } catch (error) {  
-                console.error("Error fetching top-rated movies:", error);  
-            } finally {  
+                const data = await fetchTopRatedMovies();
+                setTopRated(data.results);
+            }finally {  
                 setLoading(false);  
             }  
         };  
-  
         getTopRatedMovies();  
     }, []);
 
     useEffect(() => {  
         const getNowShowingMovies = async () => {  
             try {  
-                const data = await fetchNowShowingMovies(); // Mengambil data menggunakan fungsi yang diimpor  
-                setNowShowing(data.results); // Mengatur state dengan hasil yang diterima  
-            } catch (error) {  
-                console.error("Error fetching now showing movies:", error);  
-            } finally {  
+                const data = await fetchNowShowingMovies();  
+                setNowShowing(data.results);  
+            }finally {  
                 setLoading(false);  
             }  
         };  
-  
         getNowShowingMovies();  
     }, []);
 
+    useEffect(() => {  
+        const getUpcoming = async () => {  
+            try {  
+                const data = await fetchUpcoming(); 
+                setUpcoming(data.results);
+            }finally {  
+                setLoading(false);  
+            }  
+        };  
+        getUpcoming();  
+    }, []);
+
     const formatReleaseDate = (dateString) => {  
-        const options = {year: 'numeric' };  
+        const options = { year: 'numeric' };  
         const date = new Date(dateString);  
         return date.toLocaleDateString('en-ID', options).replace(/,/g, '');
+    };
+
+    const shuffleArray = (array) => {
+        return array.sort(() => Math.random() - 0.5);
     };
 
     if (loading) return (  
@@ -68,67 +79,37 @@ const MovieList = () => {
             </div>  
         </div>  
     );      
-    
+
     return (
-        
         <div className="container">
-
-            <h2 className="mt-4 category text-light-emphasis">Now Showing Movies</h2>  
-            <div className="row mt-3">  
-                {nowShowing.slice(0,8).map(movie => (  
-                    <div className="col-md-3 col-sm-6 col-6 mb-4" key={movie.id}>  
-                        <Link to={`/movie/${movie.id}`} className='card bg-dark'>  
-                            <img 
-                                src={movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : 'https://fakeimg.pl/500x750/242424/454545?text=No+Image&font=bebas`'}
-                                alt={movie.title}  
-                                className="card-img-top"  
-                            />  
-                            <div className="card-body bg-dark">  
-                                <h5 className="card-title text-light text-truncate text-nowrap">{movie.title}</h5>  
-                                <p className='text-white-50 font-monospace text-truncate text-nowrap'>{movie.release_date ? formatReleaseDate(movie.release_date) : 'Release date not available'}</p>  
-                            </div>  
-                        </Link>  
-                    </div>  
-                ))}  
-            </div>
-
-            <h2 className="mt-4 category text-light-emphasis">Popular Movie</h2>  
-            <div className="row mt-3">  
-                {popular.slice(0,8).map(movie => (  
-                    <div className="col-md-3 col-sm-6 col-6 mb-4" key={movie.id}> 
-                        <Link to={`/movie/${movie.id}`} className='card bg-dark'>  
-                        <img  
-                            src={movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : 'https://fakeimg.pl/500x750/242424/454545?text=No+Image&font=bebas`'} 
-                            alt={movie.title}
-                            className="card-img-top"  
-                        />  
-                        <div className="card-body bg-dark">
-                            <h5 className="card-title text-white text-truncate text-nowrap">{movie.title}</h5>  
-                            <p className='text-white-50 font-monospace text-truncate text-nowrap'>{movie.release_date ? formatReleaseDate(movie.release_date) : 'Release date not available'}</p>
-                        </div>
-                        </Link>  
-                    </div>
-                ))}  
-            </div>
-
-            <h2 className="mt-4 category text-light-emphasis">Top Rated Movies</h2>  
-            <div className="row mt-3">  
-                {topRated.slice(0,8).map(movie => (
-                    <div className="col-md-3 col-sm-6 col-6 mb-4" key={movie.id}>  
-                        <Link to={`/movie/${movie.id}`} className='card bg-dark'>  
-                            <img  
-                                src={movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : 'https://fakeimg.pl/500x750/242424/454545?text=No+Image&font=bebas`'} 
-                                alt={movie.title}  
-                                className="card-img-top"  
-                            />  
-                            <div className="card-body bg-dark">  
-                                <h5 className="card-title text-white text-truncate text-nowrap">{movie.title}</h5>  
-                                <p className='text-white-50 font-monospace text-truncate text-nowrap'>{movie.release_date ? formatReleaseDate(movie.release_date) : 'Release date not available'}</p>  
-                            </div>  
-                        </Link>  
-                    </div>  
-                ))}  
-            </div>
+            <Carousel
+                title="Now Showing Movies"
+                data={shuffleArray(nowShowing)}
+                formatDate={formatReleaseDate}
+                loading={loading}
+                linkPrefix="/movie"
+            />
+            <Carousel
+                title="Popular Movies"
+                data={popular}
+                formatDate={formatReleaseDate}
+                loading={loading}
+                linkPrefix="/movie"
+            />
+            <Carousel
+                title="Top Rated Movies"
+                data={topRated}
+                formatDate={formatReleaseDate}
+                loading={loading}
+                linkPrefix="/movie"
+            />
+            <Carousel
+                title="Upcoming Movies"
+                data={upcoming}
+                formatDate={formatReleaseDate}
+                loading={loading}
+                linkPrefix="/movie"
+            />
         </div>  
     );  
 };  
