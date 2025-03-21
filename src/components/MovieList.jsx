@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';  
 import { fetchNowShowingMovies, fetchPopularMovies, fetchTopRatedMovies, fetchUpcoming } from '../api/tmdb';
 import Carousel from './Carousell'; // Assuming you have the Carousel component
-import '../style/MovieList.css';
 
 const MovieList = () => {  
     const [popular, setPopular] = useState([]);

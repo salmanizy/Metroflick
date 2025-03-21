@@ -10,6 +10,7 @@ import SeriesList from './components/SeriesList';
 import SeriesDetail from './components/SeriesDetail';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';  
 import 'bootstrap/dist/css/bootstrap.min.css';
+import ResultsPage from './components/ResultPage';
   
 function App() {
   return (  
@@ -17,6 +18,7 @@ function App() {
       <Navbar />
       <Routes>  
         <Route path="/" element={<MovieList />} />
+        <Route path="/results" element={<ResultsPage />} />
         <Route path="/tv" element={<SeriesList />}/>
         <Route path="/tv/:id" element={<SeriesDetail />}/>
         <Route path="/movie/:id" element={<MovieDetail />} />

@@ -4,6 +4,15 @@
     overflow: hidden;
 }
 
+.imgCanvas{
+    height: 400.6px !important;
+}
+
+.card-img-top{
+    height: 100% !important;
+    object-fit: cover !important;
+}
+
 .card-body{
     height: 100% !important;
 }

@@ -1,32 +1,48 @@
-// src/components/Navbar.jsx      
 import { useEffect, useRef, useState } from 'react';      
 import { useNavigate, Link } from 'react-router-dom';      
 import { searchActors, searchMovies, searchSeries } from '../api/tmdb';  
 import '../style/Navbar.css';      
-      
+
 const Navbar = () => {      
   const [query, setQuery] = useState('');      
-  const [results, setResults] = useState({ movies: [], actors: [], serieses: [] }); // Initialize results as an object  
+  const [results, setResults] = useState({ movies: [], actors: [], serieses: [] });
   const navigate = useNavigate();  
   const resultsRef = useRef(null); // Referensi untuk hasil autocomplete      
   const inputRef = useRef(null);
       
-  const handleSearch = async (e) => {      
+  // Function to handle input change and fetch results
+  const handleInputChange = async (e) => {      
     const value = e.target.value;      
     setQuery(value);      
-      
+
     if (value) {    
-      const [movieResults, actorResults, seriesResults] = await Promise.all([    
-          searchMovies(value),    
-          searchActors(value),  
-          searchSeries(value)  
-      ]);    
-      setResults({ movies: movieResults, actors: actorResults, serieses: seriesResults });    
+      const [movieResults, actorResults, seriesResults] = await Promise.all([
+        searchMovies(value),
+        searchActors(value),
+        searchSeries(value)
+      ]);
+      setResults({ movies: movieResults, actors: actorResults, serieses: seriesResults });
     } else {    
       setResults({ movies: [], actors: [], serieses: [] });    
     }    
-  };  
-  
+  };
+
+  // Function to handle Enter key press
+  const handleKeyPress = async (e) => {
+    if (e.key === 'Enter') {
+      const value = query; // Use the current query state
+      const [movieResults, actorResults, seriesResults] = await Promise.all([
+        searchMovies(value),
+        searchActors(value),
+        searchSeries(value)
+      ]);
+      setResults({ movies: movieResults, actors: actorResults, serieses: seriesResults });
+
+      // Navigate to the results page with the search keyword as a query parameter
+      navigate(`/results?result=${encodeURIComponent(value)}`);
+    }
+  };
+
   const handleResultClick = (id, type) => {    
     if (type === 'actor') {
         navigate(`/cast/${id}`);
@@ -43,7 +59,7 @@ const Navbar = () => {
     return date.toLocaleDateString('en-ID', options).replace(/,/g, '');
   };  
       
-  // Menutup autocomplete saat mengklik di luar      
+  // Menutup autocomplete saat mengklik di luar
   useEffect(() => {    
     const handleClickOutside = (event) => {    
       if (    
@@ -79,16 +95,8 @@ const Navbar = () => {
   return (      
     <nav className="navbar navbar-expand-lg">      
       <div className="container">      
-        <Link className="navbar-brand fs-3 fw-bold" to="/">Metroflick</Link>      
-        <button      
-          className="navbar-toggler"      
-          type="button"      
-          data-bs-toggle="collapse"      
-          data-bs-target="#navbarSupportedContent"      
-          aria-controls="navbarSupportedContent"   
-          aria-expanded="false"  
-          aria-label="Toggle navigation"  
-        >      
+        <Link className="navbar-brand fs-3 fw-bold" to="/"><h2>metroflick</h2></Link>      
+        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">      
           <span className="navbar-toggler-icon"></span>      
         </button>      
         <div className="collapse navbar-collapse" id="navbarSupportedContent">      
@@ -101,7 +109,8 @@ const Navbar = () => {
             <input      
               type="text"      
               value={query}  
-              onChange={handleSearch}      
+              onChange={handleInputChange} // Handle input change
+              onKeyDown={handleKeyPress} // Handle Enter key press
               placeholder="Press [/] to search"      
               className="form-control d-flex ps-3"  
               ref={inputRef}      
@@ -134,7 +143,7 @@ const Navbar = () => {
                     key={actor.id}      
                     to={`/cast/${actor.id}`}  
                     className="autocomplete-item d-flex align-items-start p-2 text-decoration-none"  
-                    onClick={() => handleResultClick(actor.id, 'actor')}  
+                    onClick={() => handleResultClick(actor.id, 'actor')}
                   >      
                     <img      
                       src={actor.profile_path ? `https://image.tmdb.org/t/p/w500${actor.profile_path}` : 'https://fakeimg.pl/500x750/242424/454545?text=No+Image&font=bebas'}      
@@ -177,4 +186,4 @@ const Navbar = () => {
   );      
 };      
       
-export default Navbar;      
+export default Navbar;

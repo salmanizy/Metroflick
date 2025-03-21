@@ -57,11 +57,13 @@ const Carousel = ({ title, data, formatDate, loading, linkPrefix }) => {
                 {data.map(item => (
                     <SwiperSlide key={item.id}>
                         <Link to={`${linkPrefix}/${item.id}`} className='card bg-dark'>
-                            <img
-                                src={item.poster_path ? `https://image.tmdb.org/t/p/w500${item.poster_path}` : 'https://fakeimg.pl/500x750/242424/454545?text=No+Image&font=bebas'}
-                                alt={item.title || item.name}
-                                className="card-img-top"
-                            />
+                            <div className='imgCanvas'>
+                                <img
+                                    src={item.poster_path ? `https://image.tmdb.org/t/p/w500${item.poster_path}` : 'https://fakeimg.pl/500x750/242424/454545?text=No+Image&font=bebas'}
+                                    alt={item.title || item.name}
+                                    className="card-img-top"
+                                />
+                            </div>
                             <div className="card-body bg-dark">
                                 <h5 className="card-title text-light text-truncate text-nowrap">{item.title || item.name}</h5>
                                 <p className='text-white-50 font-monospace text-truncate text-nowrap'>
