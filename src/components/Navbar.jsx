@@ -3,7 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { searchActors, searchMovies, searchSeries } from '../api/tmdb';  
 import '../style/Navbar.css';      
 
-const Navbar = () => {      
+const Navbar = () => {
   const [query, setQuery] = useState('');      
   const [results, setResults] = useState({ movies: [], actors: [], serieses: [] });
   const navigate = useNavigate();  
@@ -13,7 +13,7 @@ const Navbar = () => {
   // Function to handle input change and fetch results
   const handleInputChange = async (e) => {      
     const value = e.target.value;      
-    setQuery(value);      
+    setQuery(value);
 
     if (value) {    
       const [movieResults, actorResults, seriesResults] = await Promise.all([
@@ -28,20 +28,17 @@ const Navbar = () => {
   };
 
   // Function to handle Enter key press
-  const handleKeyPress = async (e) => {
-    if (e.key === 'Enter') {
-      const value = query; // Use the current query state
-      const [movieResults, actorResults, seriesResults] = await Promise.all([
-        searchMovies(value),
-        searchActors(value),
-        searchSeries(value)
-      ]);
-      setResults({ movies: movieResults, actors: actorResults, serieses: seriesResults });
-
-      // Navigate to the results page with the search keyword as a query parameter
-      navigate(`/results?result=${encodeURIComponent(value)}`);
+  const handleSearch = async () => {
+    if (query.trim()) {
+      navigate(`/results?=${encodeURIComponent(query)}`);
     }
   };
+
+  const handleSubmit = (e) => {
+    setResults({ movies: [], actors: [], serieses: [] });
+    e.preventDefault()
+    handleSearch()  
+  }
 
   const handleResultClick = (id, type) => {    
     if (type === 'actor') {
@@ -61,13 +58,13 @@ const Navbar = () => {
       
   // Menutup autocomplete saat mengklik di luar
   useEffect(() => {    
-    const handleClickOutside = (event) => {    
+    const handleClickOutside = (e) => {    
       if (    
         resultsRef.current &&     
-        !resultsRef.current.contains(event.target) &&     
+        !resultsRef.current.contains(e.target) &&     
         inputRef.current &&     
-        !inputRef.current.contains(event.target)    
-      ) {    
+        !inputRef.current.contains(e.target)    
+      ) {
         setResults({ movies: [], actors: [], serieses: [] });    
       }    
     };    
@@ -79,9 +76,9 @@ const Navbar = () => {
   }, []);     
       
   useEffect(() => {      
-    const handleKeyDown = (event) => {      
-      if (event.key === '/') {      
-        event.preventDefault(); 
+    const handleKeyDown = (e) => {      
+      if (e.key === '/') {      
+        e.preventDefault(); 
         inputRef.current.focus();
       }      
     };
@@ -105,16 +102,15 @@ const Navbar = () => {
             <Link className="nav-link text-light-emphasis" to="/tv">Series</Link>  
             <Link className="nav-link text-light-emphasis" to="/actors">Actor</Link>  
           </ul>
-          <form className="d-flex position-relative">      
+          <form className="d-flex position-relative" onSubmit={handleSubmit}>      
             <input      
               type="text"      
               value={query}  
-              onChange={handleInputChange} // Handle input change
-              onKeyDown={handleKeyPress} // Handle Enter key press
+              onChange={handleInputChange}
               placeholder="Press [/] to search"      
-              className="form-control d-flex ps-3"  
-              ref={inputRef}      
-            />      
+              className="form-control d-flex ps-3"
+              ref={inputRef}
+            />
   
             {results && (results.movies.length > 0 || results.actors.length > 0 || results.serieses.length > 0) && (      
               <div className="autocomplete-results position-absolute rounded" ref={resultsRef}>  
@@ -168,7 +164,7 @@ const Navbar = () => {
                     <img
                       src={series.poster_path ? `https://image.tmdb.org/t/p/w500${series.poster_path}` : 'https://fakeimg.pl/500x750/242424/454545?text=No+Image&font=bebas'}
                       alt={series.name}
-                      className="me-2"    
+                      className="me-2"
                       style={{ width: '25%', height: 'auto' }}    
                     />
                     <div className='d-flex flex-column align-self-center text-white'>    
