@@ -14,6 +14,8 @@ const SeriesDetail = () => {
     const [similarSeries, setSimilarSeries] = useState([]);  
     const [reviews, setReviews] = useState([]);  
     const [trailerUrl, setTrailerUrl] = useState(null);
+    const [crew, setCrew] = useState([]);
+    const [soundCrew, setSoundCrew] = useState([]);
   
     useEffect(() => {  
         const getSeriesDetails = async () => {  
@@ -28,13 +30,34 @@ const SeriesDetail = () => {
                 setSimilarSeries(similarSeriesData.results);  
                 setReviews(seriesReviews.results);  
                 setLoading(false);
+                
+                const crewData = seriesCredits.crew.filter(member => member.job === "Author" || member.job === "Director" || member.job === "Writer" || member.job === "Producer" || member.job === "Comic Book" || member.job === "Original Series Creator");
+                setCrew(mergeRoles(crewData));
+                
+                const soundCrewData = seriesCredits.crew.filter(member => member.job === "Music Producer" || member.job === "Original Music Composer" || member.job === "Theme Song Performance" || member.job === "Main Title Theme Composer");
+                setSoundCrew(soundCrewData);
+
             } catch (error) {  
                 console.error("Error fetching series details:", error);  
                 setLoading(false);  
             }  
         };  
         getSeriesDetails();  
-    }, [id]);  
+    }, [id]);
+
+    const mergeRoles = (crewList) => {
+        const crewMap = new Map();
+    
+        crewList.forEach(({ id, name, job, profile_path }) => {
+            if (crewMap.has(id)) {
+                crewMap.get(id).job += `, ${job}`;
+            } else {
+                crewMap.set(id, { id, name, job, profile_path });
+            }
+        });
+    
+        return Array.from(crewMap.values());
+    };
   
     const fetchTrailer = async () => {  
         const video = await fetchSeriesVideos(id);  
@@ -113,10 +136,10 @@ const SeriesDetail = () => {
                 </div>  
             </div>  
   
-            <h2 className="mb-3 mt-5">Cast</h2>  
-            <div className="row mb-5">  
+            <div className="row mb-2">  
+                <h2 className="mb-3 mt-5">Cast</h2>
                 {cast.map((actor) => (  
-                    <div className="col-md-3 col-4 mb-4" key={actor.id}>  
+                    <div className="col-lg-2 col-4 py-2" key={actor.id}>  
                         <Link to={`/cast/${actor.id}`} className="card bg-dark">  
                             <img  
                                 src={actor.profile_path ? `https://image.tmdb.org/t/p/w500${actor.profile_path}` : 'https://fakeimg.pl/500x750/242424/454545?text=No+Image&font=bebas'}  
@@ -134,7 +157,81 @@ const SeriesDetail = () => {
                         </Link>  
                     </div>  
                 ))}  
-            </div>  
+            </div>
+
+            {/* <div className="mb-2 row">
+                {crew.length  > 0 && (
+                <h2>Crews</h2>
+                    {crew.map(person => (
+                        <div key={person.id} className="col-md-2 col-4 mb-4 g-2">
+                            <Link to={`/crew/${person.id}`} className="card bg-dark">
+                                <img
+                                    src={person.profile_path ? `https://image.tmdb.org/t/p/w500${person.profile_path}` : 'https://fakeimg.pl/500x750/242424/454545?text=No+Image&font=bebas'}
+                                    alt={person.name}
+                                    className="card-img-top"
+                                />
+                                <div className="card-body">
+                                    <p className="card-title text-light fw-semibold text-truncate text-nowrap">
+                                        {person.name}
+                                    </p>
+                                    <p className="card-title text-white-50 text-truncate text-nowrap font-monospace">
+                                        {person.job}
+                                    </p>
+                                </div>
+                            </Link>
+                        </div>
+                    ))
+                )
+            </div> */}
+
+            {crew.length > 0 && (
+                <div className="mb-5 row">
+                    <h2>Crews</h2>
+                    {crew.map((person) => (
+                        <div className="col-lg-2 col-4 py-2" key={person.id}>
+                            <Link to={`/crew/${person.id}`} className="card bg-dark">
+                                <img
+                                    src={person.profile_path ? `https://image.tmdb.org/t/p/w500${person.profile_path}` : 'https://fakeimg.pl/500x750/242424/454545?text=No+Image&font=bebas`'}       
+                                    alt={person.name}      
+                                    className="card-img-top"
+                                />
+                                <div className="card-body">
+                                    <p className="card-title text-light fw-semibold text-truncate text-nowrap">      
+                                        {person.name}      
+                                    </p>      
+                                    <p className="card-title text-white-50 text-truncate text-nowrap font-monospace">      
+                                        {person.job}      
+                                    </p>
+                                </div>
+                            </Link>
+                        </div>
+                    ))}
+                </div>
+            )}
+            {soundCrew.length > 0 && (
+                <div className="mb-5 row">
+                    <h2>Sound Crew</h2>
+                    {soundCrew.map((member) => (
+                        <div className="col-lg-2 col-4 py-2" key={member.id}>
+                            <Link to={`/crew/${member.id}`} className="card bg-dark">
+                                <img
+                                    src={member.profile_path ? `https://image.tmdb.org/t/p/w500${member.profile_path}` : 'https://fakeimg.pl/500x750/242424/454545?text=No+Image&font=bebas`'}       
+                                    alt={member.name}      
+                                    className="card-img-top"
+                                />
+                                <div className="card-body">
+                                    <p className="card-title text-light fw-semibold text-truncate text-nowrap">      
+                                        {member.name}      
+                                    </p>      
+                                    <p className="card-title text-white-50 text-truncate text-nowrap font-monospace">      
+                                        {member.job}      
+                                    </p>
+                                </div>
+                            </Link>
+                        </div>
+                    ))}
+                </div>
+            )}
   
             <h2 className="mb-3">Similar Series</h2>  
             <div className="row mb-5">  

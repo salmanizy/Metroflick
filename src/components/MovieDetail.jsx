@@ -7,12 +7,14 @@ import '../style/Details.css'
 
 const MovieDetail = () => {        
     const { id } = useParams();        
-    const [movie, setMovie] = useState(null);        
-    const [loading, setLoading] = useState(true);        
+    const [movie, setMovie] = useState(null);
+    const [loading, setLoading] = useState(true);
     const [cast, setCast] = useState([]);        
     const [similarMovies, setSimilarMovies] = useState([]);        
     const [reviews, setReviews] = useState([]);  
-    const [trailerUrl, setTrailerUrl] = useState(null);   
+    const [trailerUrl, setTrailerUrl] = useState(null);
+    const [crew, setCrew] = useState([])
+    const [soundCrew, setSoundCrew] = useState([]);  
         
     useEffect(() => {        
         const getMovieDetails = async () => {        
@@ -20,21 +22,43 @@ const MovieDetail = () => {
                 const movieDetails = await fetchMovieDetails(id);        
                 const movieCredits = await fetchMovieCredits(id);        
                 const similarMoviesData = await fetchSimilarMovies(id);        
-                const movieReviews = await fetchMovieReviews(id);        
+                const movieReviews = await fetchMovieReviews(id);     
         
                 setMovie(movieDetails);        
                 setCast(movieCredits.cast);        
                 setSimilarMovies(similarMoviesData.results);        
                 setReviews(movieReviews.results);        
-                setLoading(false);        
+                setLoading(false);
+                
+                const crewData = movieCredits.crew.filter(member => member.job === "Director" || member.job === "Writer" || member.job === "Producer" || member.job === "Comic Book");
+                setCrew(mergeRoles(crewData));
+
+                const soundCrewData = movieCredits.crew.filter(member => member.job === "Music Producer" || member.job === "Original Music Composer");
+                setSoundCrew(soundCrewData);
+
             } catch (error) {        
-                console.error("Error fetching movie details:", error);        
+                console.error("Error fetching movie details:", error);
                 setLoading(false);
             }        
         };        
         getMovieDetails();        
     }, [id]);  
   
+    const mergeRoles = (crewList) => {
+        const crewMap = new Map();
+    
+        crewList.forEach(({ id, name, job, profile_path }) => {
+            if (crewMap.has(id)) {
+                crewMap.get(id).job += `, ${job}`;
+            } else {
+                crewMap.set(id, { id, name, job, profile_path });
+            }
+        });
+    
+        return Array.from(crewMap.values());
+    };
+    
+
     const fetchTrailer = async() => {  
         const video = await fetchMovieVideos(id);  
         const trailer = video.find(video => video.type === 'Trailer' && video.site === 'YouTube');    
@@ -79,7 +103,7 @@ const MovieDetail = () => {
                         <h1 className="mb-3 text-light fw-bolder">{movie.title}</h1>  
                         <h5 className="d-inline text-dark-emphasis fw-bold">{formatReleaseDate(movie.release_date)}</h5>  
                         <p className="mb-4 mt-3 text-light">{movie.overview}</p>  
-                        <div className="d-flex align-items-center">  
+                        <div className="d-flex align-items-center">
                             <h5 className="d-inline p-2 mt-1 mb-1 me-3 bg-warning rounded-3"><span><i className="bi bi-star-fill d-inline"></i></span>{movie.vote_average.toFixed(1)}</h5>  
                             <button type="button" className="btn btn-light" data-bs-toggle="modal" data-bs-target="#trailerModal">Watch Trailer</button>  
                         </div>  
@@ -112,17 +136,17 @@ const MovieDetail = () => {
                 </div>  
             </div>  
   
-            <h2 className="mb-3 mt-5">Cast</h2>
 
             <div className="row mb-5">      
+                <h2 className="mb-3 mt-5">Cast</h2>
                 {cast.map((actor) => (        
-                    <div className="col-md-3 col-4 mb-4" key={actor.id}>      
+                    <div className="col-lg-2 col-4 py-2" key={actor.id}>      
                         <Link to={`/cast/${actor.id}`} className="card bg-dark">      
                             <img
                                 src={actor.profile_path ? `https://image.tmdb.org/t/p/w500${actor.profile_path}` : 'https://fakeimg.pl/500x750/242424/454545?text=No+Image&font=bebas`'}       
                                 alt={actor.name}      
                                 className="card-img-top"
-                            />        
+                            />      
                             <div className="card-body">      
                                 <p className="card-title text-light fw-semibold text-truncate text-nowrap">      
                                     {actor.name}      
@@ -133,15 +157,66 @@ const MovieDetail = () => {
                             </div>      
                         </Link>      
                     </div>      
-                ))}      
-            </div>     
-        
+                ))}
+            </div> 
+            
+            <div className="mb-5 row">
+                <h2>Crews</h2>
+                {crew
+                    .map(person => (
+                        <div key={person.id} className="col-lg-2 col-4 py-2">
+                            <Link to={`/crew/${person.id}`} className="card bg-dark">
+                                <img
+                                    src={person.profile_path ? `https://image.tmdb.org/t/p/w500${person.profile_path}` : 'https://fakeimg.pl/500x750/242424/454545?text=No+Image&font=bebas'}
+                                    alt={person.name}
+                                    className="card-img-top"
+                                />
+                                <div className="card-body">
+                                    <p className="card-title text-light fw-semibold text-truncate text-nowrap">
+                                        {person.name}
+                                    </p>
+                                    <p className="card-title text-white-50 text-truncate text-nowrap font-monospace">
+                                        {person.job}
+                                    </p>
+                                </div>
+                            </Link>
+                        </div>
+                    ))
+                }
+            </div>
+
+
+            {soundCrew.length > 0 && (
+                <div className="mb-5 row">
+                    <h2>Sound Crew</h2>
+                    {soundCrew.map((member) => (
+                        <div className="col-lg-2 col-4 py-2" key={member.id}>
+                            <Link to={`/crew/${member.id}`} className="card bg-dark">
+                                <img
+                                    src={member.profile_path ? `https://image.tmdb.org/t/p/w500${member.profile_path}` : 'https://fakeimg.pl/500x750/242424/454545?text=No+Image&font=bebas`'}       
+                                    alt={member.name}      
+                                    className="card-img-top"
+                                />
+                                <div className="card-body">
+                                    <p className="card-title text-light fw-semibold text-truncate text-nowrap">      
+                                        {member.name}      
+                                    </p>      
+                                    <p className="card-title text-white-50 text-truncate text-nowrap font-monospace">      
+                                        {member.job}      
+                                    </p>
+                                </div>
+                            </Link>
+                        </div>
+                    ))}
+                </div>
+            )}
+
             <div className="row mb-5">  
-                <h2 className="mb-3">Similar Movies</h2>  
+                <h2 className="mb-3">Similar Movies</h2>
                 {similarMovies.length > 0 ? (
                     similarMovies.slice(0, 6).map((similar) => (  
-                        <div className="col-md-2 col-6 mb-4" key={similar.id}>  
-                            <Link to={`/tv/${similar.id}`} className="card bg-dark">  
+                        <div className="col-lg-2 col-4 py-2 mb-4" key={similar.id}>  
+                            <Link to={`/movie/${similar.id}`} className="card bg-dark">  
                                 <img  
                                     src={similar.poster_path ? `https://image.tmdb.org/t/p/w500${similar.poster_path}` : 'https://fakeimg.pl/500x750/242424/454545?text=No+Image&font=bebas'}  
                                     alt={similar.name}  
@@ -167,7 +242,6 @@ const MovieDetail = () => {
                     </div>
                 )}  
             </div>
-
         
             {reviews.length > 0 ? (
                 <div>

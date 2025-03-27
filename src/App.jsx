@@ -11,6 +11,7 @@ import SeriesDetail from './components/SeriesDetail';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';  
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ResultsPage from './components/ResultPage';
+import CrewDetail from './components/CrewDetail';
   
 function App() {
   return (  
@@ -23,6 +24,7 @@ function App() {
         <Route path="/tv/:id" element={<SeriesDetail />}/>
         <Route path="/movie/:id" element={<MovieDetail />} />
         <Route path="/cast/:id" element={<CastDetail />} />
+        <Route path="/crew/:id" element={<CrewDetail />} />
         <Route path="/actors" element={<ActorList/>}/>
       </Routes>  
     </Router>  
