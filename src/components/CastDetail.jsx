@@ -6,12 +6,13 @@ const CastDetail = () => {
     const { id } = useParams();  
     const [cast, setCast] = useState(null);  
     const [movies, setMovies] = useState([]);  
-    const [series, setSeries] = useState([]);  
+    const [series, setSeries] = useState([]);
     const [loading, setLoading] = useState(true);  
+    const [showFullBio, setShowFullBio] = useState(false); //setter full text
     
-    useEffect(() => {    
-        const getCastDetails = async () => {    
-            try {    
+    useEffect(() => {
+        const getCastDetails = async () => {
+            try {
                 const castDetails = await fetchCastDetails(id);  
                 const castMovies = await fetchCastMovies(id);  
                 const castSeries = await fetchCastSeries(id);  
@@ -44,9 +45,9 @@ const CastDetail = () => {
       
     const truncateBiography = (bio, maxLength = 700) => {    
         if (!bio) return "Biography not available.";    
-        if (bio.length <= maxLength) return bio;  
+        if (showFullBio || bio.length <= maxLength) return bio;  //setter full text
         return bio.slice(0, maxLength) + "...";  
-    };  
+    };
     
     if (loading) return (  
         <div className="d-flex justify-content-center align-items-center" style={{ height: '100vh' }}>  
@@ -62,14 +63,24 @@ const CastDetail = () => {
               
             <div className="row">      
                 <div className="col-6">           
-                    <img src={`https://image.tmdb.org/t/p/w500${cast.profile_path}`} alt={cast.name} className="img-fluid rounded-2" />          
+                    <img src={cast.profile_path ? `https://image.tmdb.org/t/p/w500${cast.profile_path}` : 'https://fakeimg.pl/500x750/242424/454545?text=No+Image&font=bebas' } alt={cast.name} className="img-fluid rounded-2" />     
                 </div>      
                 <div className="col-6 d-flex align-self-center">    
                     <div className="p-5 rounded-2 bg-dark">    
                         <h1 className="mb-3 text-warning fw-semibold">{cast.name}</h1>    
                         <h5 className="d-block text-white">{cast.place_of_birth || "Not available"}</h5>    
                         <h5 className="d-block text-white">Date of Birth: {formatDateOfBirth(cast.birthday)}</h5>  
-                        <p className="text-white-50">{truncateBiography(cast.biography) || "Biography not available."}</p>    
+                        <p className="text-white-50">
+                            {truncateBiography(cast.biography)}
+                            {cast.biography && cast.biography.length > 700 && ( //setter full text
+                                <a 
+                                    className="text-warning p-0 ms-3"
+                                    onClick={() => setShowFullBio(!showFullBio)}
+                                >
+                                    {showFullBio ? "See Less" : "See More"}
+                                </a>
+                            )}
+                        </p> 
                     </div>    
                 </div>    
             </div>  
