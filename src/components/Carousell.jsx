@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { Link } from 'react-router-dom';
-import { Pagination } from 'swiper/modules';
+import { Pagination, Navigation } from 'swiper/modules';
 
 const Carousel = ({ title, data, formatDate, loading, linkPrefix }) => {
+    const swiperRef = useRef(null);
+
     if (loading) {
         return (
             <div className="d-flex justify-content-center align-items-center" style={{ height: '100vh' }}>
@@ -26,31 +28,31 @@ const Carousel = ({ title, data, formatDate, loading, linkPrefix }) => {
 
     return (
         <div className="container">
-            <h2 className="mt-4 category text-light-emphasis">{title}</h2>
+            <div className='d-flex justify-content-between'>
+            <h2 className="mt-4 category text-light-emphasis align-self-center">{title}</h2>
+
+            <div className="carousel-controls align-self-center mt-4">
+                <button className='fs-3 border border-0 bg-transparent' onClick={() => swiperRef.current?.slidePrev()}>
+                    <i class="bi bi-arrow-left-square-fill"></i>
+                </button>
+                <button className='fs-3 pe-0 border border-0 bg-transparent' onClick={() => swiperRef.current?.slideNext()}>
+                    <i class="bi bi-arrow-right-square-fill"></i>
+                </button>
+            </div>
+            </div>
+
             <Swiper
+                onSwiper={(swiper) => (swiperRef.current = swiper)}
                 slidesPerView={1}
                 spaceBetween={10}
                 grabCursor={true}
-                pagination={{
-                    clickable: true,
-                }}
+                loop={true}
+                modules={[Pagination, Navigation]}
                 breakpoints={{
-                    '@0.00': {
-                        slidesPerView: 1,
-                        spaceBetween: 20,
-                    },
-                    '@0.75': {
-                        slidesPerView: 2,
-                        spaceBetween: 20,
-                    },
-                    '@1.00': {
-                        slidesPerView: 3,
-                        spaceBetween: 20,
-                    },
-                    '@1.50': {
-                        slidesPerView: 4.5,
-                        spaceBetween: 20,
-                    },
+                    '@0.00': { slidesPerView: 1, spaceBetween: 20 },
+                    '@0.75': { slidesPerView: 2, spaceBetween: 20 },
+                    '@1.00': { slidesPerView: 3, spaceBetween: 20 },
+                    '@1.50': { slidesPerView: 4.5, spaceBetween: 20 },
                 }}
                 className="mySwiper"
             >
