@@ -77,6 +77,7 @@ const CrewDetail = () => {
                 <div className="col-6 d-flex align-self-center">
                     <div className="p-5 rounded-2 bg-dark">
                         <h1 className="mb-3 text-warning fw-semibold">{crew.name}</h1>
+                        <h5 className="d-block text-white-50">{crew.place_of_birth}</h5>  
                         <h5 className="d-block text-white">Date of Birth: {formatDateOfBirth(crew.birthday)}</h5>  
                         <p className="text-white-50">
                             {truncateBiography(crew.biography)}
