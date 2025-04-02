@@ -71,10 +71,10 @@ const CrewDetail = () => {
     return (
         <div className="container mt-4">
             <div className="row">
-                <div className="col-6">
+                <div className="col-12 col-md-6 d-flex justify-content-center align-self-center">
                     <img src={crew.profile_path ? `https://image.tmdb.org/t/p/w500${crew.profile_path}` : 'https://fakeimg.pl/500x750/242424/454545?text=No+Image&font=bebas'} alt={crew.name} className="img-fluid rounded-2" />
                 </div>
-                <div className="col-6 d-flex align-self-center">
+                <div className="col-12 col-md-6 d-flex justify-content-center align-self-center">
                     <div className="p-5 rounded-2 bg-dark">
                         <h1 className="mb-3 text-warning fw-semibold">{crew.name}</h1>
                         <h5 className="d-block text-white-50">{crew.place_of_birth}</h5>  
