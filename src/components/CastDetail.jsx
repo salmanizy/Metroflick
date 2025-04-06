@@ -57,7 +57,7 @@ const CastDetail = () => {
         <div className="d-flex justify-content-center align-items-center" style={{ height: '100vh' }}>  
             <div className="spinner-border text-dark" role="status">  
                 <span className="visually-hidden">Loading...</span>  
-            </div>  
+            </div>
         </div>  
     );      
     if (!cast) return <div>Cast not found</div>;  
@@ -66,7 +66,7 @@ const CastDetail = () => {
         <div className="container mt-4">
             <div className="row">      
                 <div className="col-12 col-md-6 d-flex justify-content-center align-self-center">           
-                    <img src={cast.profile_path ? `https://image.tmdb.org/t/p/w500${cast.profile_path}` : 'https://fakeimg.pl/500x750/242424/454545?text=No+Image&font=bebas' } alt={cast.name} className="img-fluid rounded-2" />     
+                    <img loading="lazy" src={cast.profile_path ? `https://image.tmdb.org/t/p/w500${cast.profile_path}` : 'https://fakeimg.pl/500x750/242424/454545?text=No+Image&font=bebas' } alt={cast.name} className="img-fluid rounded-2" />     
                 </div>      
                 <div className="col-12 col-md-6 d-flex justify-content-center align-self-center">    
                     <div className="p-5 rounded-2 bg-dark">    
@@ -111,8 +111,8 @@ const CastDetail = () => {
                         </a>
                     )}
                     {socials.twitter_id && socials.twitter_id !== "" && (
-                        <a href={`https://twitter.com/${socials.twitter_id}`} target="_blank" rel="noopener noreferrer" className="text-warning bg-dark rounded-2 p-2 fw-semibold text-decoration-none">
-                            <i className="bi bi-twitter"></i> Twitter
+                        <a href={`https://x.com/${socials.twitter_id}`} target="_blank" rel="noopener noreferrer" className="text-warning bg-dark rounded-2 p-2 fw-semibold text-decoration-none">
+                            <i className="bi bi-twitter-x"></i> Twitter
                         </a>
                     )}
                     {socials.youtube_id && (
@@ -126,9 +126,7 @@ const CastDetail = () => {
                         </a>
                     )}
                     {!socials.imdb_id && !socials.facebook_id && !socials.instagram_id && !socials.tiktok_id && !socials.twitter_id &&
-                    !socials.youtube_id && !socials.wikidata_id && (
-                        <p className="text-white-50">No external links available</p>
-                    )}
+                    !socials.youtube_id && !socials.wikidata_id}
                 </div>
             </div>
   
@@ -138,7 +136,8 @@ const CastDetail = () => {
                     <div className="col-md-2 mb-4" key={`movie-${movie.id}-${index}`}>    
                         <Link to={`/movie/${movie.id}`} className="card bg-dark">  
                             <div className="bg-dark text-white">    
-                                <img    
+                                <img
+                                    loading="lazy" 
                                     src={movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : 'https://fakeimg.pl/500x750/242424/454545?text=No+Image&font=bebas`'}  
                                     alt={movie.title}    
                                     className="card-img-top"    
@@ -159,7 +158,8 @@ const CastDetail = () => {
                     <div className="col-md-2 mb-4" key={`series-${series.id}-${index}`}>      
                         <Link to={`/tv/${series.id}`} className="card bg-dark">    
                             <div className="bg-dark text-white">      
-                                <img      
+                                <img
+                                    loading="lazy"    
                                     src={series.poster_path ? `https://image.tmdb.org/t/p/w500${series.poster_path}` : 'https://fakeimg.pl/500x750/242424/454545?text=No+Image&font=bebas`'}    
                                     alt={series.name}  
                                     className="card-img-top"      

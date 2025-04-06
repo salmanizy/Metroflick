@@ -61,6 +61,7 @@ const Carousel = ({ title, data, formatDate, loading, linkPrefix }) => {
                         <Link to={`${linkPrefix}/${item.id}`} className='card bg-dark'>
                             <div className='imgCanvas'>
                                 <img
+                                    loading="lazy"
                                     src={item.poster_path ? `https://image.tmdb.org/t/p/w500${item.poster_path}` : 'https://fakeimg.pl/500x750/242424/454545?text=No+Image&font=bebas'}
                                     alt={item.title || item.name}
                                     className="card-img-top"

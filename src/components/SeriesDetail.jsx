@@ -96,7 +96,7 @@ const SeriesDetail = () => {
         <div className="container mt-4">  
             <div className="row">  
                 <div className="col-12 col-md-6 d-flex justify-content-center align-self-center">  
-                    <img src={series.poster_path ? `https://image.tmdb.org/t/p/w500${series.poster_path}` : 'https://fakeimg.pl/500x750/242424/454545?text=No+Image&font=bebas'} alt={series.name} className={`img-fluid rounded-2 ${window.innerWidth < 768 ? 'small-image' : ''}`}/>  
+                    <img loading="lazy" src={series.poster_path ? `https://image.tmdb.org/t/p/w500${series.poster_path}` : 'https://fakeimg.pl/500x750/242424/454545?text=No+Image&font=bebas'} alt={series.name} className={`img-fluid rounded-2 ${window.innerWidth < 768 ? 'small-image' : ''}`}/>  
                 </div>  
                 <div className="col-12 col-md-6 d-flex justify-content-center align-self-center">  
                     <div className="p-5 rounded-2 bg-dark">  
@@ -141,7 +141,8 @@ const SeriesDetail = () => {
                 {cast.map((actor) => (  
                     <div className="col-lg-2 col-4 py-2" key={actor.id}>  
                         <Link to={`/cast/${actor.id}`} className="card bg-dark">  
-                            <img  
+                            <img
+                                loading="lazy"
                                 src={actor.profile_path ? `https://image.tmdb.org/t/p/w500${actor.profile_path}` : 'https://fakeimg.pl/500x750/242424/454545?text=No+Image&font=bebas'}  
                                 alt={actor.name}  
                                 className="card-img-top"  
@@ -191,6 +192,7 @@ const SeriesDetail = () => {
                         <div className="col-lg-2 col-4 py-2" key={person.id}>
                             <Link to={`/crew/${person.id}`} className="card bg-dark">
                                 <img
+                                    loading="lazy"
                                     src={person.profile_path ? `https://image.tmdb.org/t/p/w500${person.profile_path}` : 'https://fakeimg.pl/500x750/242424/454545?text=No+Image&font=bebas`'}       
                                     alt={person.name}      
                                     className="card-img-top"
@@ -215,6 +217,7 @@ const SeriesDetail = () => {
                         <div className="col-lg-2 col-4 py-2" key={member.id}>
                             <Link to={`/crew/${member.id}`} className="card bg-dark">
                                 <img
+                                    loading="lazy"
                                     src={member.profile_path ? `https://image.tmdb.org/t/p/w500${member.profile_path}` : 'https://fakeimg.pl/500x750/242424/454545?text=No+Image&font=bebas`'}       
                                     alt={member.name}      
                                     className="card-img-top"
@@ -239,7 +242,8 @@ const SeriesDetail = () => {
                     similarSeries.slice(0, 6).map((similar) => (  
                         <div className="col-md-2 col-6 mb-4" key={similar.id}>
                             <Link to={`/tv/${similar.id}`} className="card bg-dark">  
-                                <img  
+                                <img
+                                    loading="lazy"  
                                     src={similar.poster_path ? `https://image.tmdb.org/t/p/w500${similar.poster_path}` : 'https://fakeimg.pl/500x750/242424/454545?text=No+Image&font=bebas'}  
                                     alt={similar.name}  
                                     className="card-img-top"  

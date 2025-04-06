@@ -96,7 +96,7 @@ const MovieDetail = () => {
         <div className="container mt-4">        
             <div className="row">
                 <div className="col-12 col-md-6 d-flex justify-content-center align-self-center">         
-                    <img src={movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : 'https://fakeimg.pl/500x750/242424/454545?text=No+Image&font=bebas`'} alt={movie.title} className={`img-fluid rounded-2 ${window.innerWidth < 768 ? 'small-image' : ''}`} />   
+                    <img loading="lazy" src={movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : 'https://fakeimg.pl/500x750/242424/454545?text=No+Image&font=bebas`'} alt={movie.title} className={`img-fluid rounded-2 ${window.innerWidth < 768 ? 'small-image' : ''}`} />   
                 </div>    
                 <div className="col-12 col-md-6 d-flex justify-content-center align-self-center">  
                     <div className="p-5 rounded-2 bg-dark">  
@@ -143,6 +143,7 @@ const MovieDetail = () => {
                     <div className="col-lg-2 col-4 py-2" key={actor.id}>      
                         <Link to={`/cast/${actor.id}`} className="card bg-dark">      
                             <img
+                                loading="lazy"
                                 src={actor.profile_path ? `https://image.tmdb.org/t/p/w500${actor.profile_path}` : 'https://fakeimg.pl/500x750/242424/454545?text=No+Image&font=bebas`'}       
                                 alt={actor.name}      
                                 className="card-img-top"
@@ -160,31 +161,33 @@ const MovieDetail = () => {
                 ))}
             </div> 
             
-            <div className="mb-5 row">
-                <h2>Crews</h2>
-                {crew
-                    .map(person => (
-                        <div key={person.id} className="col-lg-2 col-4 py-2">
-                            <Link to={`/crew/${person.id}`} className="card bg-dark">
-                                <img
-                                    src={person.profile_path ? `https://image.tmdb.org/t/p/w500${person.profile_path}` : 'https://fakeimg.pl/500x750/242424/454545?text=No+Image&font=bebas'}
-                                    alt={person.name}
-                                    className="card-img-top"
-                                />
-                                <div className="card-body">
-                                    <p className="card-title text-light fw-semibold text-truncate text-nowrap">
-                                        {person.name}
-                                    </p>
-                                    <p className="card-title text-white-50 text-truncate text-nowrap font-monospace">
-                                        {person.job}
-                                    </p>
-                                </div>
-                            </Link>
-                        </div>
-                    ))
-                }
-            </div>
-
+            {crew.length > 0 && (
+                <div className="mb-5 row">
+                    <h2>Crews</h2>
+                    {crew
+                        .map(person => (
+                            <div key={person.id} className="col-lg-2 col-4 py-2">
+                                <Link to={`/crew/${person.id}`} className="card bg-dark">
+                                    <img
+                                        loading="lazy"
+                                        src={person.profile_path ? `https://image.tmdb.org/t/p/w500${person.profile_path}` : 'https://fakeimg.pl/500x750/242424/454545?text=No+Image&font=bebas'}
+                                        alt={person.name}
+                                        className="card-img-top"
+                                    />
+                                    <div className="card-body">
+                                        <p className="card-title text-light fw-semibold text-truncate text-nowrap">
+                                            {person.name}
+                                        </p>
+                                        <p className="card-title text-white-50 text-truncate text-nowrap font-monospace">
+                                            {person.job}
+                                        </p>
+                                    </div>
+                                </Link>
+                            </div>
+                        ))
+                    }
+                </div>
+            )}
 
             {soundCrew.length > 0 && (
                 <div className="mb-5 row">
@@ -193,6 +196,7 @@ const MovieDetail = () => {
                         <div className="col-lg-2 col-4 py-2" key={member.id}>
                             <Link to={`/crew/${member.id}`} className="card bg-dark">
                                 <img
+                                    loading="lazy"
                                     src={member.profile_path ? `https://image.tmdb.org/t/p/w500${member.profile_path}` : 'https://fakeimg.pl/500x750/242424/454545?text=No+Image&font=bebas`'}       
                                     alt={member.name}      
                                     className="card-img-top"
@@ -211,13 +215,14 @@ const MovieDetail = () => {
                 </div>
             )}
 
-            <div className="row mb-5">  
+            <div className="row mb-5">
                 <h2 className="mb-3">Similar Movies</h2>
                 {similarMovies.length > 0 ? (
                     similarMovies.slice(0, 6).map((similar) => (  
                         <div className="col-lg-2 col-4 py-2 mb-4" key={similar.id}>  
                             <Link to={`/movie/${similar.id}`} className="card bg-dark">  
-                                <img  
+                                <img
+                                    loading="lazy"
                                     src={similar.poster_path ? `https://image.tmdb.org/t/p/w500${similar.poster_path}` : 'https://fakeimg.pl/500x750/242424/454545?text=No+Image&font=bebas'}  
                                     alt={similar.name}  
                                     className="card-img-top"  

@@ -121,7 +121,8 @@ const Navbar = () => {
                     className="autocomplete-item d-flex align-items-start p-2 text-decoration-none"  
                     onClick={() => handleResultClick(movie.id, 'movie')}  
                   >      
-                    <img      
+                    <img
+                      loading="lazy"
                       src={movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : 'https://fakeimg.pl/500x750/242424/454545?text=No+Image&font=bebas'}      
                       alt={movie.title}      
                       className="me-2"      

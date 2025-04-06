@@ -72,7 +72,7 @@ const CrewDetail = () => {
         <div className="container mt-4">
             <div className="row">
                 <div className="col-12 col-md-6 d-flex justify-content-center align-self-center">
-                    <img src={crew.profile_path ? `https://image.tmdb.org/t/p/w500${crew.profile_path}` : 'https://fakeimg.pl/500x750/242424/454545?text=No+Image&font=bebas'} alt={crew.name} className="img-fluid rounded-2" />
+                    <img loading="lazy" src={crew.profile_path ? `https://image.tmdb.org/t/p/w500${crew.profile_path}` : 'https://fakeimg.pl/500x750/242424/454545?text=No+Image&font=bebas'} alt={crew.name} className="img-fluid rounded-2" />
                 </div>
                 <div className="col-12 col-md-6 d-flex justify-content-center align-self-center">
                     <div className="p-5 rounded-2 bg-dark">
@@ -94,35 +94,39 @@ const CrewDetail = () => {
                 </div>
             </div>
 
-            <h2 className="mt-5">Movies</h2>
-            <div className="row mt-3">
-                {movies.map((movie) => (
-                    <div className="col-md-2 mb-4" key={`movie-${movie.id}`}>
-                        <Link to={`/movie/${movie.id}`} className="card bg-dark">
-                            <img src={movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : 'https://fakeimg.pl/500x750/242424/454545?text=No+Image'} alt={movie.title} className="card-img-top" />
-                            <div className="card-body">
-                                <h5 className="card-title text-truncate text-white text-nowrap">{movie.title}</h5>
-                                <p className="card-text text-truncate text-white-50 text-nowrap font-monospace">{movie.job}</p>
-                            </div>
-                        </Link>
-                    </div>
-                ))}
-            </div>
+            {movies.length > 0 && (
+                <div className="row mt-3">
+                <h2 className="mt-5">Movies</h2>
+                    {movies.map((movie) => (
+                        <div className="col-md-2 mb-4" key={`movie-${movie.id}`}>
+                            <Link to={`/movie/${movie.id}`} className="card bg-dark">
+                                <img loading="lazy" src={movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : 'https://fakeimg.pl/500x750/242424/454545?text=No+Image'} alt={movie.title} className="card-img-top" />
+                                <div className="card-body">
+                                    <h5 className="card-title text-truncate text-white text-nowrap">{movie.title}</h5>
+                                    <p className="card-text text-truncate text-white-50 text-nowrap font-monospace">{movie.job}</p>
+                                </div>
+                            </Link>
+                        </div>
+                    ))}
+                </div>
+            )}
 
-            <h2 className="mt-5">Series</h2>
-            <div className="row mt-3">
-                {series.map((show) => (
-                    <div className="col-md-2 mb-4" key={`series-${show.id}`}>
-                        <Link to={`/tv/${show.id}`} className="card bg-dark">
-                            <img src={show.poster_path ? `https://image.tmdb.org/t/p/w500${show.poster_path}` : 'https://fakeimg.pl/500x750/242424/454545?text=No+Image'} alt={show.name} className="card-img-top" />
-                            <div className="card-body">
-                                <h5 className="card-title text-truncate text-white text-nowrap">{show.name}</h5>
-                                <p className="card-text text-truncate text-white-50 text-nowrap font-monospace">{show.job}</p>
-                            </div>
-                        </Link>
-                    </div>
-                ))}
-            </div>
+            {series.length > 0 && (
+                <div className="row mt-3">
+                    <h2 className="mt-5">Series</h2>
+                    {series.map((show) => (
+                        <div className="col-md-2 mb-4" key={`series-${show.id}`}>
+                            <Link to={`/tv/${show.id}`} className="card bg-dark">
+                                <img loading="lazy" src={show.poster_path ? `https://image.tmdb.org/t/p/w500${show.poster_path}` : 'https://fakeimg.pl/500x750/242424/454545?text=No+Image'} alt={show.name} className="card-img-top" />
+                                <div className="card-body">
+                                    <h5 className="card-title text-truncate text-white text-nowrap">{show.name}</h5>
+                                    <p className="card-text text-truncate text-white-50 text-nowrap font-monospace">{show.job}</p>
+                                </div>
+                            </Link>
+                        </div>
+                    ))}
+                </div>
+            )}
         </div>
     );
 };

@@ -34,6 +34,7 @@ const ResultsPage = () => {
               <div key={movie.id} className='col-12 col-md-2 d-flex justify-content-center align-self-center'>
                 <Link to={`/movie/${movie.id}`} className="card bg-dark card-sm">
                   <img
+                    loading="lazy"
                     src={movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : 'https://fakeimg.pl/500x750/242424/454545?text=No+Image&font=bebas'}
                     alt={movie.title}
                     className="card-img-top"
@@ -59,6 +60,7 @@ const ResultsPage = () => {
               <div key={series.id} className='col-12 col-md-2 d-flex justify-content-center align-self-center'>
                 <Link to={`/tv/${series.id}`} className="card bg-dark">
                 <img
+                  loading="lazy"
                   src={series.poster_path ? `https://image.tmdb.org/t/p/w500${series.poster_path}` : 'https://fakeimg.pl/500x750/242424/454545?text=No+Image&font=bebas'}
                   alt={series.name}
                 />
@@ -85,6 +87,7 @@ const ResultsPage = () => {
               <div key={actor.id} className='col-12 col-md-2 d-flex justify-content-center align-self-center'>
                 <Link to={`/cast/${actor.id}`} className="card bg-dark">
                   <img
+                    loading="lazy"
                     src={actor.profile_path ? `https://image.tmdb.org/t/p/w500${actor.profile_path}` : 'https://fakeimg.pl/500x750/242424/454545?text=No+Image&font=bebas'}
                     alt={actor.name}
                     />
@@ -112,6 +115,7 @@ const ResultsPage = () => {
               <div key={crew.id} className='col-12 col-md-2 d-flex justify-content-center align-self-center'>
                 <Link to={`/crew/${crew.id}`} className="card bg-dark">
                   <img
+                    loading="lazy"
                     src={crew.profile_path ? `https://image.tmdb.org/t/p/w500${crew.profile_path}` : 'https://fakeimg.pl/500x750/242424/454545?text=No+Image&font=bebas'}
                     alt={crew.name}
                   />
