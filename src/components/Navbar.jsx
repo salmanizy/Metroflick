@@ -123,7 +123,7 @@ const Navbar = () => {
                   >      
                     <img
                       loading="lazy"
-                      src={movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : 'https://fakeimg.pl/500x750/242424/454545?text=No+Image&font=bebas'}      
+                      src={movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : 'https://placehold.co/500x750/242424/454545?text=No+Image'}      
                       alt={movie.title}      
                       className="me-2"      
                       style={{ width: '25%', height: 'auto' }}      
@@ -143,7 +143,7 @@ const Navbar = () => {
                     onClick={() => handleResultClick(actor.id, 'actor')}
                   >      
                     <img      
-                      src={actor.profile_path ? `https://image.tmdb.org/t/p/w500${actor.profile_path}` : 'https://fakeimg.pl/500x750/242424/454545?text=No+Image&font=bebas'}      
+                      src={actor.profile_path ? `https://image.tmdb.org/t/p/w500${actor.profile_path}` : 'https://placehold.co/500x750/242424/454545?text=No+Image'}      
                       alt={actor.name}      
                       className="me-2"      
                       style={{ width: '25%', height: 'auto' }}      
@@ -163,7 +163,7 @@ const Navbar = () => {
                     onClick={() => handleResultClick(series.id, 'series')}    
                   >    
                     <img
-                      src={series.poster_path ? `https://image.tmdb.org/t/p/w500${series.poster_path}` : 'https://fakeimg.pl/500x750/242424/454545?text=No+Image&font=bebas'}
+                      src={series.poster_path ? `https://image.tmdb.org/t/p/w500${series.poster_path}` : 'https://placehold.co/500x750/242424/454545?text=No+Image'}
                       alt={series.name}
                       className="me-2"
                       style={{ width: '25%', height: 'auto' }}    

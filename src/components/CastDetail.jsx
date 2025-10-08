@@ -66,7 +66,7 @@ const CastDetail = () => {
         <div className="container mt-4">
             <div className="row">      
                 <div className="col-12 col-md-6 d-flex justify-content-center align-self-center">           
-                    <img loading="lazy" src={cast.profile_path ? `https://image.tmdb.org/t/p/w500${cast.profile_path}` : 'https://fakeimg.pl/500x750/242424/454545?text=No+Image&font=bebas' } alt={cast.name} className="img-fluid rounded-2" />     
+                    <img loading="lazy" src={cast.profile_path ? `https://image.tmdb.org/t/p/w500${cast.profile_path}` : 'https://placehold.co/500x750/242424/454545?text=No+Image' } alt={cast.name} className="img-fluid rounded-2" />     
                 </div>      
                 <div className="col-12 col-md-6 d-flex justify-content-center align-self-center">    
                     <div className="p-5 rounded-2 bg-dark">    
@@ -138,7 +138,7 @@ const CastDetail = () => {
                             <div className="bg-dark text-white">    
                                 <img
                                     loading="lazy" 
-                                    src={movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : 'https://fakeimg.pl/500x750/242424/454545?text=No+Image&font=bebas`'}  
+                                    src={movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : 'https://placehold.co/500x750/242424/454545?text=No+Image'}  
                                     alt={movie.title}    
                                     className="card-img-top"    
                                 />    
@@ -160,7 +160,7 @@ const CastDetail = () => {
                             <div className="bg-dark text-white">      
                                 <img
                                     loading="lazy"    
-                                    src={series.poster_path ? `https://image.tmdb.org/t/p/w500${series.poster_path}` : 'https://fakeimg.pl/500x750/242424/454545?text=No+Image&font=bebas`'}    
+                                    src={series.poster_path ? `https://image.tmdb.org/t/p/w500${series.poster_path}` : 'https://placehold.co/500x750/242424/454545?text=No+Image'}    
                                     alt={series.name}  
                                     className="card-img-top"      
                                 />      

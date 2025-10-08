@@ -35,7 +35,7 @@ const ResultsPage = () => {
                 <Link to={`/movie/${movie.id}`} className="card bg-dark card-sm">
                   <img
                     loading="lazy"
-                    src={movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : 'https://fakeimg.pl/500x750/242424/454545?text=No+Image&font=bebas'}
+                    src={movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : 'https://placehold.co/500x750/242424/454545?text=No+Image'}
                     alt={movie.title}
                     className="card-img-top"
                   />
@@ -61,7 +61,7 @@ const ResultsPage = () => {
                 <Link to={`/tv/${series.id}`} className="card bg-dark">
                 <img
                   loading="lazy"
-                  src={series.poster_path ? `https://image.tmdb.org/t/p/w500${series.poster_path}` : 'https://fakeimg.pl/500x750/242424/454545?text=No+Image&font=bebas'}
+                  src={series.poster_path ? `https://image.tmdb.org/t/p/w500${series.poster_path}` : 'https://placehold.co/500x750/242424/454545?text=No+Image'}
                   alt={series.name}
                 />
                 <div className="card-body bg-dark">
@@ -88,7 +88,7 @@ const ResultsPage = () => {
                 <Link to={`/cast/${actor.id}`} className="card bg-dark">
                   <img
                     loading="lazy"
-                    src={actor.profile_path ? `https://image.tmdb.org/t/p/w500${actor.profile_path}` : 'https://fakeimg.pl/500x750/242424/454545?text=No+Image&font=bebas'}
+                    src={actor.profile_path ? `https://image.tmdb.org/t/p/w500${actor.profile_path}` : 'https://placehold.co/500x750/242424/454545?text=No+Image'}
                     alt={actor.name}
                     />
                   <div className="card-body bg-dark">
@@ -116,7 +116,7 @@ const ResultsPage = () => {
                 <Link to={`/crew/${crew.id}`} className="card bg-dark">
                   <img
                     loading="lazy"
-                    src={crew.profile_path ? `https://image.tmdb.org/t/p/w500${crew.profile_path}` : 'https://fakeimg.pl/500x750/242424/454545?text=No+Image&font=bebas'}
+                    src={crew.profile_path ? `https://image.tmdb.org/t/p/w500${crew.profile_path}` : 'https://placehold.co/500x750/242424/454545?text=No+Image'}
                     alt={crew.name}
                   />
                   <div className="card-body bg-dark">

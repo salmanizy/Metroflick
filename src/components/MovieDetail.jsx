@@ -96,7 +96,7 @@ const MovieDetail = () => {
         <div className="container mt-4">        
             <div className="row">
                 <div className="col-12 col-md-6 d-flex justify-content-center align-self-center">         
-                    <img loading="lazy" src={movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : 'https://fakeimg.pl/500x750/242424/454545?text=No+Image&font=bebas`'} alt={movie.title} className={`img-fluid rounded-2 ${window.innerWidth < 768 ? 'small-image' : ''}`} />   
+                    <img loading="lazy" src={movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : 'https://placehold.co/500x750/242424/454545?text=No+Image'} alt={movie.title} className={`img-fluid rounded-2 ${window.innerWidth < 768 ? 'small-image' : ''}`} />   
                 </div>    
                 <div className="col-12 col-md-6 d-flex justify-content-center align-self-center">  
                     <div className="p-5 rounded-2 bg-dark">  
@@ -144,7 +144,7 @@ const MovieDetail = () => {
                         <Link to={`/cast/${actor.id}`} className="card bg-dark">      
                             <img
                                 loading="lazy"
-                                src={actor.profile_path ? `https://image.tmdb.org/t/p/w500${actor.profile_path}` : 'https://fakeimg.pl/500x750/242424/454545?text=No+Image&font=bebas`'}       
+                                src={actor.profile_path ? `https://image.tmdb.org/t/p/w500${actor.profile_path}` : 'https://placehold.co/500x750/242424/454545?text=No+Image'}       
                                 alt={actor.name}      
                                 className="card-img-top"
                             />      
@@ -170,7 +170,7 @@ const MovieDetail = () => {
                                 <Link to={`/crew/${person.id}`} className="card bg-dark">
                                     <img
                                         loading="lazy"
-                                        src={person.profile_path ? `https://image.tmdb.org/t/p/w500${person.profile_path}` : 'https://fakeimg.pl/500x750/242424/454545?text=No+Image&font=bebas'}
+                                        src={person.profile_path ? `https://image.tmdb.org/t/p/w500${person.profile_path}` : 'https://placehold.co/500x750/242424/454545?text=No+Image'}
                                         alt={person.name}
                                         className="card-img-top"
                                     />
@@ -197,7 +197,7 @@ const MovieDetail = () => {
                             <Link to={`/crew/${member.id}`} className="card bg-dark">
                                 <img
                                     loading="lazy"
-                                    src={member.profile_path ? `https://image.tmdb.org/t/p/w500${member.profile_path}` : 'https://fakeimg.pl/500x750/242424/454545?text=No+Image&font=bebas`'}       
+                                    src={member.profile_path ? `https://image.tmdb.org/t/p/w500${member.profile_path}` : 'https://placehold.co/500x750/242424/454545?text=No+Image'}       
                                     alt={member.name}      
                                     className="card-img-top"
                                 />
@@ -223,7 +223,7 @@ const MovieDetail = () => {
                             <Link to={`/movie/${similar.id}`} className="card bg-dark">  
                                 <img
                                     loading="lazy"
-                                    src={similar.poster_path ? `https://image.tmdb.org/t/p/w500${similar.poster_path}` : 'https://fakeimg.pl/500x750/242424/454545?text=No+Image&font=bebas'}  
+                                    src={similar.poster_path ? `https://image.tmdb.org/t/p/w500${similar.poster_path}` : 'https://placehold.co/500x750/242424/454545?text=No+Image'}  
                                     alt={similar.name}  
                                     className="card-img-top"  
                                 />

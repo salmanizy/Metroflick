@@ -57,7 +57,7 @@ const ActorList = () => {
                         <Link to={`/cast/${actor.id}`} className='card bg-dark'>    
                             <img
                                 loading="lazy"
-                                src={actor.profile_path ? `https://image.tmdb.org/t/p/w500${actor.profile_path}` : 'https://fakeimg.pl/500x750/242424/454545?text=No+Image&font=bebas'}    
+                                src={actor.profile_path ? `https://image.tmdb.org/t/p/w500${actor.profile_path}` : 'https://placehold.co/500x750/242424/454545?text=No+Image'}    
                                 alt={actor.name}    
                                 className="card-img-top"    
                             />    

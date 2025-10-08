@@ -50,8 +50,8 @@ const Carousel = ({ title, data, formatDate, loading, linkPrefix }) => {
                 modules={[Pagination, Navigation]}
                 breakpoints={{
                     '@0.00': { slidesPerView: 1, spaceBetween: 20 },
-                    '@0.75': { slidesPerView: 2, spaceBetween: 20 },
-                    '@1.00': { slidesPerView: 3, spaceBetween: 20 },
+                    '@0.75': { slidesPerView: 2.5, spaceBetween: 20},
+                    '@1.00': { slidesPerView: 3.5, spaceBetween: 20 },
                     '@1.50': { slidesPerView: 4.5, spaceBetween: 20 },
                 }}
                 className="mySwiper"
@@ -62,7 +62,7 @@ const Carousel = ({ title, data, formatDate, loading, linkPrefix }) => {
                             <div className='imgCanvas'>
                                 <img
                                     loading="lazy"
-                                    src={item.poster_path ? `https://image.tmdb.org/t/p/w500${item.poster_path}` : 'https://fakeimg.pl/500x750/242424/454545?text=No+Image&font=bebas'}
+                                    src={item.poster_path ? `https://image.tmdb.org/t/p/w500${item.poster_path}` : 'https://placehold.co/500x750/242424/454545?text=No+Image'}
                                     alt={item.title || item.name}
                                     className="card-img-top"
                                 />
