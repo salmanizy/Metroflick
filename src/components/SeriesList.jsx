@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { fetchNowAiringSeries, fetchPopularSeries, fetchTopRatedSeries } from '../api/tmdb';
 import Carousel from './Carousell';
 import '../style/MovieList.css';
+import Footer from './Footer';
 
 const SeriesList = () => {
     const [popular, setPopular] = useState([]);
@@ -94,6 +95,7 @@ const SeriesList = () => {
                 loading={loading}
                 linkPrefix="/tv"
             />
+            <Footer className="mt-4" />
         </>
     );
 };

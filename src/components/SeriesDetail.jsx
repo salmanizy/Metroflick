@@ -5,6 +5,7 @@ import { fetchSeriesDetails, fetchSeriesCredits, fetchSimilarSeries, fetchSeries
 import 'bootstrap-icons/font/bootstrap-icons.min.css';    
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import '../style/Details.css'
+import Footer from "./Footer";
   
 const SeriesDetail = () => {  
     const { id } = useParams();  
@@ -93,182 +94,185 @@ const SeriesDetail = () => {
     if (!series) return <div>Series not found</div>;  
   
     return (  
-        <div className="container mt-4">  
-            <div className="row">  
-                <div className="col-12 col-md-6 d-flex justify-content-center align-self-center">  
-                    <img loading="lazy" src={series.poster_path ? `https://image.tmdb.org/t/p/w500${series.poster_path}` : 'https://placehold.co/500x750/242424/454545?text=No+Image'} alt={series.name} className={`img-fluid rounded-2 ${window.innerWidth < 768 ? 'small-image' : ''}`}/>  
-                </div>  
-                <div className="col-12 col-md-6 d-flex justify-content-center align-self-center">  
-                    <div className="p-5 rounded-2 bg-dark">  
-                        <h1 className="mb-3 text-light fw-bolder">{series.name}</h1>  
-                        <h5 className="d-inline text-dark-emphasis fw-bold">{formatReleaseDate(series.first_air_date)}</h5>  
-                        <p className="mb-4 mt-3 text-light">{series.overview}</p>  
-                        <div className="d-flex align-items-center">  
-                            <h5 className="d-inline p-2 mt-1 mb-1 me-3 bg-warning rounded-3"><span><i className="bi bi-star-fill d-inline"></i></span>{series.vote_average.toFixed(1)}</h5>  
-                            <button type="button" className="btn btn-light" data-bs-toggle="modal" data-bs-target="#trailerModal">Watch Trailer</button>  
-                        </div>  
+        <>
+            <div className="container mt-4">  
+                <div className="row">  
+                    <div className="col-12 col-md-6 d-flex justify-content-center align-self-center">  
+                        <img loading="lazy" src={series.poster_path ? `https://image.tmdb.org/t/p/w500${series.poster_path}` : 'https://placehold.co/500x750/242424/454545?text=No+Image'} alt={series.name} className={`img-fluid rounded-2 ${window.innerWidth < 768 ? 'small-image' : ''}`}/>  
                     </div>  
-                </div>  
-            </div>  
-  
-            <div className="modal fade" id="trailerModal" tabIndex="-1" aria-labelledby="labelModal" aria-hidden="true">  
-                <div className="modal-dialog modal-dialog-centered modal-xl">  
-                    <div className="modal-content bg-dark">  
-                        <div className="modal-header">  
-                            <h1 className="modal-title fs-5 text-white" id="labelModal">{series.name}</h1>  
-                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>  
-                        </div>  
-                        <div className="modal-body">  
-                            {trailerUrl && (  
-                                <div className="mt-4">  
-                                    <iframe  
-                                        width="100%"  
-                                        height="500px"  
-                                        src={trailerUrl}  
-                                        title={series.name}  
-                                        allow="autoplay; encrypted-media"  
-                                        allowFullScreen  
-                                    />  
-                                </div>  
-                            )}  
-                        </div>  
-                    </div>  
-                </div>  
-            </div>  
-  
-            <div className="row mb-2">  
-                <h2 className="mb-3 mt-5">Cast</h2>
-                {cast.map((actor) => (  
-                    <div className="col-lg-2 col-4 py-2" key={actor.id}>  
-                        <Link to={`/cast/${actor.id}`} className="card bg-dark">  
-                            <img
-                                loading="lazy"
-                                src={actor.profile_path ? `https://image.tmdb.org/t/p/w500${actor.profile_path}` : 'https://placehold.co/500x750/242424/454545?text=No+Image'}  
-                                alt={actor.name}  
-                                className="card-img-top"  
-                            />  
-                            <div className="card-body">  
-                                <p className="card-title text-light fw-semibold text-truncate text-nowrap">  
-                                    {actor.name}  
-                                </p>  
-                                <p className="card-title text-white-50 text-truncate text-nowrap font-monospace">  
-                                    {actor.character}  
-                                </p>  
+                    <div className="col-12 col-md-6 d-flex justify-content-center align-self-center">  
+                        <div className="p-5 rounded-2 bg-dark">  
+                            <h1 className="mb-3 text-light fw-bolder">{series.name}</h1>  
+                            <h5 className="d-inline text-dark-emphasis fw-bold">{formatReleaseDate(series.first_air_date)}</h5>  
+                            <p className="mb-4 mt-3 text-light">{series.overview}</p>  
+                            <div className="d-flex align-items-center">  
+                                <h5 className="d-inline p-2 mt-1 mb-1 me-3 bg-warning rounded-3"><span><i className="bi bi-star-fill d-inline"></i></span>{series.vote_average.toFixed(1)}</h5>  
+                                <button type="button" className="btn btn-light" data-bs-toggle="modal" data-bs-target="#trailerModal">Watch Trailer</button>  
                             </div>  
-                        </Link>  
+                        </div>  
                     </div>  
-                ))}  
-            </div>
-
-            {crew.length > 0 && (
-                <div className="mb-5 row">
-                    <h2>Crews</h2>
-                    {crew.map((person) => (
-                        <div className="col-lg-2 col-4 py-2" key={person.id}>
-                            <Link to={`/crew/${person.id}`} className="card bg-dark">
+                </div>  
+    
+                <div className="modal fade" id="trailerModal" tabIndex="-1" aria-labelledby="labelModal" aria-hidden="true">  
+                    <div className="modal-dialog modal-dialog-centered modal-xl">  
+                        <div className="modal-content bg-dark">  
+                            <div className="modal-header">  
+                                <h1 className="modal-title fs-5 text-white" id="labelModal">{series.name}</h1>  
+                                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>  
+                            </div>  
+                            <div className="modal-body">  
+                                {trailerUrl && (  
+                                    <div className="mt-4">  
+                                        <iframe  
+                                            width="100%"  
+                                            height="500px"  
+                                            src={trailerUrl}  
+                                            title={series.name}  
+                                            allow="autoplay; encrypted-media"  
+                                            allowFullScreen  
+                                        />  
+                                    </div>  
+                                )}  
+                            </div>  
+                        </div>  
+                    </div>  
+                </div>  
+    
+                <div className="row mb-2">  
+                    <h2 className="mb-3 mt-5">Cast</h2>
+                    {cast.map((actor) => (  
+                        <div className="col-lg-2 col-4 py-2" key={actor.id}>  
+                            <Link to={`/cast/${actor.id}`} className="card bg-dark">  
                                 <img
                                     loading="lazy"
-                                    src={person.profile_path ? `https://image.tmdb.org/t/p/w500${person.profile_path}` : 'https://placehold.co/500x750/242424/454545?text=No+Image'}       
-                                    alt={person.name}      
-                                    className="card-img-top"
-                                />
-                                <div className="card-body">
-                                    <p className="card-title text-light fw-semibold text-truncate text-nowrap">      
-                                        {person.name}      
-                                    </p>      
-                                    <p className="card-title text-white-50 text-truncate text-nowrap font-monospace">      
-                                        {person.job}      
-                                    </p>
-                                </div>
-                            </Link>
-                        </div>
-                    ))}
-                </div>
-            )}
-            {soundCrew.length > 0 && (
-                <div className="mb-5 row">
-                    <h2>Sound Crew</h2>
-                    {soundCrew.map((member) => (
-                        <div className="col-lg-2 col-4 py-2" key={member.id}>
-                            <Link to={`/crew/${member.id}`} className="card bg-dark">
-                                <img
-                                    loading="lazy"
-                                    src={member.profile_path ? `https://image.tmdb.org/t/p/w500${member.profile_path}` : 'https://placehold.co/500x750/242424/454545?text=No+Image'}       
-                                    alt={member.name}      
-                                    className="card-img-top"
-                                />
-                                <div className="card-body">
-                                    <p className="card-title text-light fw-semibold text-truncate text-nowrap">      
-                                        {member.name}      
-                                    </p>      
-                                    <p className="card-title text-white-50 text-truncate text-nowrap font-monospace">      
-                                        {member.job}      
-                                    </p>
-                                </div>
-                            </Link>
-                        </div>
-                    ))}
-                </div>
-            )}
-  
-            <h2 className="mb-3">Similar Series</h2>  
-            <div className="row mb-5">  
-                {similarSeries.length > 0 ? (
-                    similarSeries.slice(0, 6).map((similar) => (  
-                        <div className="col-md-2 col-6 mb-4" key={similar.id}>
-                            <Link to={`/tv/${similar.id}`} className="card bg-dark">  
-                                <img
-                                    loading="lazy"  
-                                    src={similar.poster_path ? `https://image.tmdb.org/t/p/w500${similar.poster_path}` : 'https://placehold.co/500x750/242424/454545?text=No+Image'}  
-                                    alt={similar.name}  
+                                    src={actor.profile_path ? `https://image.tmdb.org/t/p/w500${actor.profile_path}` : 'https://placehold.co/500x750/242424/454545?text=No+Image'}  
+                                    alt={actor.name}  
                                     className="card-img-top"  
-                                />
+                                />  
                                 <div className="card-body">  
-                                    <p className="card-title text-white text-truncate text-nowrap">  
-                                        {similar.name}  
-                                    </p>
-                                    <p className="text-white-50 font-monospace">  
-                                        {similar.first_air_date ? new Date(similar.first_air_date).getFullYear() : 'Year not available'}  
-                                    </p>
+                                    <p className="card-title text-light fw-semibold text-truncate text-nowrap">  
+                                        {actor.name}  
+                                    </p>  
+                                    <p className="card-title text-white-50 text-truncate text-nowrap font-monospace">  
+                                        {actor.character}  
+                                    </p>  
                                 </div>  
                             </Link>  
-                        </div> 
-                    ))  
+                        </div>  
+                    ))}  
+                </div>
+
+                {crew.length > 0 && (
+                    <div className="mb-5 row">
+                        <h2>Crews</h2>
+                        {crew.map((person) => (
+                            <div className="col-lg-2 col-4 py-2" key={person.id}>
+                                <Link to={`/crew/${person.id}`} className="card bg-dark">
+                                    <img
+                                        loading="lazy"
+                                        src={person.profile_path ? `https://image.tmdb.org/t/p/w500${person.profile_path}` : 'https://placehold.co/500x750/242424/454545?text=No+Image'}       
+                                        alt={person.name}      
+                                        className="card-img-top"
+                                    />
+                                    <div className="card-body">
+                                        <p className="card-title text-light fw-semibold text-truncate text-nowrap">      
+                                            {person.name}      
+                                        </p>      
+                                        <p className="card-title text-white-50 text-truncate text-nowrap font-monospace">      
+                                            {person.job}      
+                                        </p>
+                                    </div>
+                                </Link>
+                            </div>
+                        ))}
+                    </div>
+                )}
+                {soundCrew.length > 0 && (
+                    <div className="mb-5 row">
+                        <h2>Sound Crew</h2>
+                        {soundCrew.map((member) => (
+                            <div className="col-lg-2 col-4 py-2" key={member.id}>
+                                <Link to={`/crew/${member.id}`} className="card bg-dark">
+                                    <img
+                                        loading="lazy"
+                                        src={member.profile_path ? `https://image.tmdb.org/t/p/w500${member.profile_path}` : 'https://placehold.co/500x750/242424/454545?text=No+Image'}       
+                                        alt={member.name}      
+                                        className="card-img-top"
+                                    />
+                                    <div className="card-body">
+                                        <p className="card-title text-light fw-semibold text-truncate text-nowrap">      
+                                            {member.name}      
+                                        </p>      
+                                        <p className="card-title text-white-50 text-truncate text-nowrap font-monospace">      
+                                            {member.job}      
+                                        </p>
+                                    </div>
+                                </Link>
+                            </div>
+                        ))}
+                    </div>
+                )}
+    
+                <h2 className="mb-3">Similar Series</h2>  
+                <div className="row mb-5">  
+                    {similarSeries.length > 0 ? (
+                        similarSeries.slice(0, 6).map((similar) => (  
+                            <div className="col-md-2 col-6 mb-4" key={similar.id}>
+                                <Link to={`/tv/${similar.id}`} className="card bg-dark">  
+                                    <img
+                                        loading="lazy"  
+                                        src={similar.poster_path ? `https://image.tmdb.org/t/p/w500${similar.poster_path}` : 'https://placehold.co/500x750/242424/454545?text=No+Image'}  
+                                        alt={similar.name}  
+                                        className="card-img-top"  
+                                    />
+                                    <div className="card-body">  
+                                        <p className="card-title text-white text-truncate text-nowrap">  
+                                            {similar.name}  
+                                        </p>
+                                        <p className="text-white-50 font-monospace">  
+                                            {similar.first_air_date ? new Date(similar.first_air_date).getFullYear() : 'Year not available'}  
+                                        </p>
+                                    </div>  
+                                </Link>  
+                            </div> 
+                        ))  
+                    ) : (
+                        <div className="d-flex justify-content-center">
+                            <div className="alert alert-warning d-flex justify-content-between fs-4 fw-bold" role="alert">
+                                <i className="bi bi-exclamation-triangle me-2"></i>
+                                <p>No similar series available.</p>
+                            </div>
+                        </div>
+                    )}  
+                </div>
+
+
+    
+                {reviews.length > 0 ? (
+                    <div>
+                    <h2>Reviews</h2>
+                    {reviews.map((review) => (
+                        <div className="mb-3" key={review.id}>
+                        <div className="card text-bg-dark">
+                            <div className="card-body m-3">
+                            <div className="fw-bold fs-4 text-warning mb-2">@ {review.author}</div>
+                            <p className="card-text" style={{textAlign:"justify"}}>{review.content}</p>
+                            </div>
+                        </div>
+                        </div>
+                    ))}
+                    </div>
                 ) : (
                     <div className="d-flex justify-content-center">
                         <div className="alert alert-warning d-flex justify-content-between fs-4 fw-bold" role="alert">
                             <i className="bi bi-exclamation-triangle me-2"></i>
-                            <p>No similar series available.</p>
+                            <p>No Review!</p>
                         </div>
                     </div>
-                )}  
+                )}
             </div>
-
-
-  
-            {reviews.length > 0 ? (
-                <div>
-                <h2>Reviews</h2>
-                {reviews.map((review) => (
-                    <div className="mb-3" key={review.id}>
-                    <div className="card text-bg-dark">
-                        <div className="card-body m-3">
-                        <div className="fw-bold fs-4 text-warning mb-2">@ {review.author}</div>
-                        <p className="card-text" style={{textAlign:"justify"}}>{review.content}</p>
-                        </div>
-                    </div>
-                    </div>
-                ))}
-                </div>
-            ) : (
-                <div className="d-flex justify-content-center">
-                    <div className="alert alert-warning d-flex justify-content-between fs-4 fw-bold" role="alert">
-                        <i className="bi bi-exclamation-triangle me-2"></i>
-                        <p>No Review!</p>
-                    </div>
-                </div>
-            )}
-        </div>         
+            <Footer className="mt-4" />
+        </>
     );  
 };  
   

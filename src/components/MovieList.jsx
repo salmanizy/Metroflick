@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';  
 import { fetchNowShowingMovies, fetchPopularMovies, fetchTopRatedMovies, fetchUpcoming } from '../api/tmdb';
 import Carousel from './Carousell'; // Assuming you have the Carousel component
+import Footer from './Footer';
 
 const MovieList = () => {  
     const [popular, setPopular] = useState([]);
@@ -80,36 +81,39 @@ const MovieList = () => {
     );      
 
     return (
-        <div className="container">
-            <Carousel
-                title="Now Showing Movies"
-                data={shuffleArray(nowShowing)}
-                formatDate={formatReleaseDate}
-                loading={loading}
-                linkPrefix="/movie"
-            />
-            <Carousel
-                title="Popular Movies"
-                data={popular}
-                formatDate={formatReleaseDate}
-                loading={loading}
-                linkPrefix="/movie"
-            />
-            <Carousel
-                title="Top Rated Movies"
-                data={topRated}
-                formatDate={formatReleaseDate}
-                loading={loading}
-                linkPrefix="/movie"
-            />
-            <Carousel
-                title="Upcoming Movies"
-                data={upcoming}
-                formatDate={formatReleaseDate}
-                loading={loading}
-                linkPrefix="/movie"
-            />
-        </div>  
+        <>
+            <div className="container">
+                <Carousel
+                    title="Now Showing Movies"
+                    data={shuffleArray(nowShowing)}
+                    formatDate={formatReleaseDate}
+                    loading={loading}
+                    linkPrefix="/movie"
+                />
+                <Carousel
+                    title="Popular Movies"
+                    data={popular}
+                    formatDate={formatReleaseDate}
+                    loading={loading}
+                    linkPrefix="/movie"
+                />
+                <Carousel
+                    title="Top Rated Movies"
+                    data={topRated}
+                    formatDate={formatReleaseDate}
+                    loading={loading}
+                    linkPrefix="/movie"
+                />
+                <Carousel
+                    title="Upcoming Movies"
+                    data={upcoming}
+                    formatDate={formatReleaseDate}
+                    loading={loading}
+                    linkPrefix="/movie"
+                />
+            </div>  
+            <Footer className="mt-4" />
+        </>
     );  
 };  
   
