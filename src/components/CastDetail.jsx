@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";    
 import { fetchCastDetails, fetchCastMovies, fetchCastSeries, fetchSomeoneSocmed } from "../api/tmdb";    
 import Footer from "./Footer";
-  
 const CastDetail = () => {    
     const { id } = useParams();  
     const [cast, setCast] = useState(null);  
@@ -65,21 +64,28 @@ const CastDetail = () => {
     
     return (    
         <>
-            <div className="container mt-4">
-                <div className="row">      
-                    <div className="col-12 col-md-6 d-flex justify-content-center align-self-center">           
-                        <img loading="lazy" src={cast.profile_path ? `https://image.tmdb.org/t/p/w500${cast.profile_path}` : 'https://placehold.co/500x750/242424/454545?text=No+Image' } alt={cast.name} className="img-fluid rounded-2" />     
+            <div className="container mt-3 mt-md-4 px-3 px-md-3">
+                <div className="row g-3 g-md-4">      
+                    <div className="col-12 col-md-4 col-lg-3 d-flex justify-content-center">           
+                        <img 
+                            loading="lazy" 
+                            src={cast.profile_path ? `https://image.tmdb.org/t/p/w500${cast.profile_path}` : 'https://placehold.co/500x750/242424/454545?text=No+Image'} 
+                            alt={cast.name} 
+                            className="img-fluid rounded-2 w-100" 
+                            style={{ maxWidth: '400px', objectFit: 'cover' }}
+                        />     
                     </div>      
-                    <div className="col-12 col-md-6 d-flex justify-content-center align-self-center">    
-                        <div className="p-5 rounded-2 bg-dark">    
-                            <h1 className="mb-3 text-warning fw-semibold">{cast.name}</h1>    
-                            <h5 className="d-block text-white">{cast.place_of_birth || "Not available"}</h5>    
-                            <h5 className="d-block text-white">Date of Birth: {formatDateOfBirth(cast.birthday)}</h5>  
-                            <p className="text-white-50">
+                    <div className="col-12 col-md-8 col-lg-9 d-flex align-items-center">    
+                        <div className="p-3 p-md-4 p-lg-5 rounded-2 bg-dark w-100">    
+                            <h1 className="mb-2 mb-md-3 text-warning fw-semibold fs-3 fs-md-2 fs-lg-1">{cast.name}</h1>    
+                            <h6 className="d-block text-white mb-2 fs-6 fs-md-5">{cast.place_of_birth || "Not available"}</h6>    
+                            <h6 className="d-block text-white mb-3 fs-6 fs-md-5">Date of Birth: {formatDateOfBirth(cast.birthday)}</h6>  
+                            <p className="text-white-50 mb-0 fs-6 fs-md-6" style={{ lineHeight: '1.6' }}>
                                 {truncateBiography(cast.biography)}
-                                {cast.biography && cast.biography.length > 700 && ( //setter full text
+                                {cast.biography && cast.biography.length > 700 && (
                                     <a 
-                                        className="text-warning p-0 ms-3"
+                                        className="text-warning p-0 ms-2 text-decoration-none fw-semibold"
+                                        style={{ cursor: 'pointer' }}
                                         onClick={() => setShowFullBio(!showFullBio)}
                                     >
                                         {showFullBio ? "See Less" : "See More"}
@@ -132,10 +138,10 @@ const CastDetail = () => {
                     </div>
                 </div>
     
-                <h2 className="mt-5">Movies</h2>    
-                <div className="row mt-3">    
+                <h2 className="mt-4 mt-md-5 mb-3 fs-4 fs-md-3 fs-lg-2">Movies</h2>    
+                <div className="row g-2 g-md-3">    
                     {movies.map((movie, index) => (    
-                        <div className="col-md-2 mb-4" key={`movie-${movie.id}-${index}`}>    
+                        <div className="col-6 col-sm-4 col-md-3 col-lg-2" key={`movie-${movie.id}-${index}`}>    
                             <Link to={`/movie/${movie.id}`} className="card bg-dark">  
                                 <div className="bg-dark text-white">    
                                     <img
@@ -154,10 +160,10 @@ const CastDetail = () => {
                     ))}    
                 </div>    
     
-                <h2 className="mt-5">Series</h2>  
-                <div className="row mt-3">  
+                <h2 className="mt-4 mt-md-5 mb-3 fs-4 fs-md-3 fs-lg-2">Series</h2>  
+                <div className="row g-2 g-md-3">  
                     {series.map((series, index) => (  
-                        <div className="col-md-2 mb-4" key={`series-${series.id}-${index}`}>      
+                        <div className="col-6 col-sm-4 col-md-3 col-lg-2" key={`series-${series.id}-${index}`}>      
                             <Link to={`/tv/${series.id}`} className="card bg-dark">    
                                 <div className="bg-dark text-white">      
                                     <img

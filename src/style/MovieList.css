@@ -29,7 +29,7 @@
     color: #949494 !important;
 }
 
-.text-decoration-none:hover{
+.hover-effect:hover{
     color: white !important;
     font-weight: bold;
 }

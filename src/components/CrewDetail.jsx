@@ -11,7 +11,6 @@ const CrewDetail = () => {
     const [loading, setLoading] = useState(true);
     const [showFullBio, setShowFullBio] = useState(false); //setter full text
 
-
     useEffect(() => {
         const getCrewDetails = async () => {
             try {
@@ -71,21 +70,28 @@ const CrewDetail = () => {
 
     return (
         <>
-            <div className="container mt-4">
-                <div className="row">
-                    <div className="col-12 col-md-6 d-flex justify-content-center align-self-center">
-                        <img loading="lazy" src={crew.profile_path ? `https://image.tmdb.org/t/p/w500${crew.profile_path}` : 'https://placehold.co/500x750/242424/454545?text=No+Image'} alt={crew.name} className="img-fluid rounded-2" />
+            <div className="container mt-3 mt-md-4 px-3 px-md-3">
+                <div className="row g-3 g-md-4">
+                    <div className="col-12 col-md-4 col-lg-3 d-flex justify-content-center">
+                        <img 
+                            loading="lazy" 
+                            src={crew.profile_path ? `https://image.tmdb.org/t/p/w500${crew.profile_path}` : 'https://placehold.co/500x750/242424/454545?text=No+Image'} 
+                            alt={crew.name} 
+                            className="img-fluid rounded-2 w-100" 
+                            style={{ maxWidth: '400px', objectFit: 'cover' }}
+                        />
                     </div>
-                    <div className="col-12 col-md-6 d-flex justify-content-center align-self-center">
-                        <div className="p-5 rounded-2 bg-dark">
-                            <h1 className="mb-3 text-warning fw-semibold">{crew.name}</h1>
-                            <h5 className="d-block text-white-50">{crew.place_of_birth}</h5>  
-                            <h5 className="d-block text-white">Date of Birth: {formatDateOfBirth(crew.birthday)}</h5>  
-                            <p className="text-white-50">
+                    <div className="col-12 col-md-8 col-lg-9 d-flex align-items-center">
+                        <div className="p-3 p-md-4 p-lg-5 rounded-2 bg-dark w-100">
+                            <h1 className="mb-2 mb-md-3 text-warning fw-semibold fs-3 fs-md-2 fs-lg-1">{crew.name}</h1>
+                            <h6 className="d-block text-white-50 mb-2 fs-6 fs-md-5">{crew.place_of_birth || "Not available"}</h6>  
+                            <h6 className="d-block text-white mb-3 fs-6 fs-md-5">Date of Birth: {formatDateOfBirth(crew.birthday)}</h6>  
+                            <p className="text-white-50 mb-0 fs-6 fs-md-6" style={{ lineHeight: '1.6' }}>
                                 {truncateBiography(crew.biography)}
-                                {crew.biography && crew.biography.length > 700 && ( //setter full text
+                                {crew.biography && crew.biography.length > 700 && (
                                     <a 
-                                        className="text-warning p-0 ms-3"
+                                        className="text-warning p-0 ms-2 text-decoration-none fw-semibold"
+                                        style={{ cursor: 'pointer' }}
                                         onClick={() => setShowFullBio(!showFullBio)}
                                     >
                                         {showFullBio ? "See Less" : "See More"}
@@ -97,10 +103,10 @@ const CrewDetail = () => {
                 </div>
 
                 {movies.length > 0 && (
-                    <div className="row mt-3">
-                    <h2 className="mt-5">Movies</h2>
+                    <div className="row g-2 g-md-3">
+                    <h2 className="mt-4 mt-md-5 mb-3 fs-4 fs-md-3 fs-lg-2">Movies</h2>
                         {movies.map((movie) => (
-                            <div className="col-md-2 mb-4" key={`movie-${movie.id}`}>
+                            <div className="col-6 col-sm-4 col-md-3 col-lg-2" key={`movie-${movie.id}`}>
                                 <Link to={`/movie/${movie.id}`} className="card bg-dark">
                                     <img loading="lazy" src={movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : 'https://placehold.co/500x750/242424/454545?text=No+Image'} alt={movie.title} className="card-img-top" />
                                     <div className="card-body">
@@ -114,10 +120,10 @@ const CrewDetail = () => {
                 )}
 
                 {series.length > 0 && (
-                    <div className="row mt-3">
-                        <h2 className="mt-5">Series</h2>
+                    <div className="row g-2 g-md-3">
+                        <h2 className="mt-4 mt-md-5 mb-3 fs-4 fs-md-3 fs-lg-2">Series</h2>
                         {series.map((show) => (
-                            <div className="col-md-2 mb-4" key={`series-${show.id}`}>
+                            <div className="col-6 col-sm-4 col-md-3 col-lg-2" key={`series-${show.id}`}>
                                 <Link to={`/tv/${show.id}`} className="card bg-dark">
                                     <img loading="lazy" src={show.poster_path ? `https://image.tmdb.org/t/p/w500${show.poster_path}` : 'https://placehold.co/500x750/242424/454545?text=No+Image'} alt={show.name} className="card-img-top" />
                                     <div className="card-body">

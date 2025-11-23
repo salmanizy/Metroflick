@@ -53,9 +53,9 @@ const ActorList = () => {
                         <Pagination currentPage={currentPage} totalPages={totalPages} handlePageChange={handlePageChange}/> 
                     </div>
                 </div> 
-                <div className="row mt-3">    
+                <div className="row g-2 g-md-3">    
                     {popularActors.map(actor => (    
-                        <div className="col-md-3 col-sm-6 col-6 mb-4" key={actor.id}>    
+                        <div className="col-6 col-sm-6 col-md-3 col-lg-3" key={actor.id}>    
                             <Link to={`/cast/${actor.id}`} className='card bg-dark'>    
                                 <img
                                     loading="lazy"
@@ -71,7 +71,7 @@ const ActorList = () => {
                                                 <span key={item.id} className='font-monospace'>    
                                                     <Link    
                                                         to={item.media_type === 'movie' ? `/movie/${item.id}` : `/tv/${item.id}`}    
-                                                        className="text-white-50 text-decoration-none"    
+                                                        className="text-white-50 hover-effect text-decoration-none"    
                                                     >    
                                                         {item.title || item.name}    
                                                     </Link>    

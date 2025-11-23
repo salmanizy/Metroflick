@@ -29,11 +29,11 @@ const ResultsPage = () => {
 		<div className="results-page container">
 			<p className='my-3 fs-5'>Search Results for: "<span className='fst-italic fw-bold'>{keyword}</span>"</p>
 			<section className='bg-white p-2 mb-3 rounded'>
-			<h5 className='d-block'>Movies</h5>
-			<div className='row g-3'>
+			<h5 className='mb-3 fs-4 fs-md-3 fs-lg-2'>Movies</h5>
+			<div className='row g-2 g-md-3'>
 				{movies.length > 0 ? (
 				movies.map(movie => (
-					<div key={movie.id} className='col-12 col-md-2 d-flex justify-content-center align-self-center'>
+					<div key={movie.id} className='col-6 col-sm-4 col-md-3 col-lg-2 d-flex justify-content-center align-self-center'>
 					<Link to={`/movie/${movie.id}`} className="card bg-dark card-sm">
 						<img
 						loading="lazy"
@@ -55,11 +55,11 @@ const ResultsPage = () => {
 			</section>
 
 			<section className='bg-white p-2 mb-3 rounded'>
-			<h5>TV Series</h5>
-			<div className='row g-3'>
+			<h5 className='mb-3 fs-4 fs-md-3 fs-lg-2'>TV Series</h5>
+			<div className='row g-2 g-md-3'>
 				{serieses.length > 0 ? (
 				serieses.map(series => (
-					<div key={series.id} className='col-12 col-md-2 d-flex justify-content-center align-self-center'>
+					<div key={series.id} className='col-6 col-sm-4 col-md-3 col-lg-2 d-flex justify-content-center align-self-center'>
 					<Link to={`/tv/${series.id}`} className="card bg-dark">
 					<img
 						loading="lazy"
@@ -80,13 +80,13 @@ const ResultsPage = () => {
 			</section>
 
 			<section className='bg-white p-2 mb-3 rounded'>
-			<h5>Actors</h5>
-			<div className='row g-3'>
+			<h5 className='mb-3 fs-4 fs-md-3 fs-lg-2'>Actors</h5>
+			<div className='row g-2 g-md-3'>
 				{actors.length > 0 ? (
 				actors
 				.filter(actor => actor.known_for_department === 'Acting')
 				.map(actor => (
-					<div key={actor.id} className='col-12 col-md-2 d-flex justify-content-center align-self-center'>
+					<div key={actor.id} className='col-6 col-sm-4 col-md-3 col-lg-2 d-flex justify-content-center align-self-center'>
 					<Link to={`/cast/${actor.id}`} className="card bg-dark">
 						<img
 						loading="lazy"
@@ -108,13 +108,13 @@ const ResultsPage = () => {
 			</section>
 			
 			<section className='bg-white p-2 mb-3 rounded'>
-			<h5>Crew</h5>
-			<div className='row g-3'>
+			<h5 className='mb-3 fs-4 fs-md-3 fs-lg-2'>Crew</h5>
+			<div className='row g-2 g-md-3'>
 				{crews.length > 0 ? (
 				crews
 				.filter(actor => actor.known_for_department !== 'Acting')
 				.map(crew => (
-					<div key={crew.id} className='col-12 col-md-2 d-flex justify-content-center align-self-center'>
+					<div key={crew.id} className='col-6 col-sm-4 col-md-3 col-lg-2 d-flex justify-content-center align-self-center'>
 					<Link to={`/crew/${crew.id}`} className="card bg-dark">
 						<img
 						loading="lazy"

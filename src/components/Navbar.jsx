@@ -9,6 +9,20 @@ const Navbar = () => {
   const navigate = useNavigate();
   const resultsRef = useRef(null);
   const inputRef = useRef(null);
+  const navbarCollapseRef = useRef(null);
+
+  // ===============================
+  // Function untuk close navbar
+  // ===============================
+  const closeNavbar = () => {
+    const navbarCollapse = navbarCollapseRef.current;
+    if (navbarCollapse && navbarCollapse.classList.contains('show')) {
+      const bsCollapse = new window.bootstrap.Collapse(navbarCollapse, {
+        toggle: false
+      });
+      bsCollapse.hide();
+    }
+  };
 
   // ===============================
   // Input Change (hanya update query)
@@ -40,7 +54,7 @@ const Navbar = () => {
       });
     }, 350);
 
-    return () => clearTimeout(delay); // Cancel debounce
+    return () => clearTimeout(delay);
   }, [query]);
 
   // ===============================
@@ -49,6 +63,7 @@ const Navbar = () => {
   const handleSearch = () => {
     if (query.trim()) {
       navigate(`/results?=${encodeURIComponent(query)}`);
+      closeNavbar(); // Close navbar setelah search
     }
   };
 
@@ -62,6 +77,10 @@ const Navbar = () => {
   // Klik hasil
   // ===============================
   const handleResultClick = (id, type) => {
+    setResults({ movies: [], actors: [], serieses: [] }); // Clear results
+    setQuery(''); // Clear search query
+    closeNavbar(); // Close navbar
+    
     if (type === 'actor') {
       navigate(`/cast/${id}`);
     } else if (type === 'series') {
@@ -69,6 +88,13 @@ const Navbar = () => {
     } else {
       navigate(`/movie/${id}`);
     }
+  };
+
+  // ===============================
+  // Handle nav link click
+  // ===============================
+  const handleNavLinkClick = () => {
+    closeNavbar();
   };
 
   // ===============================
@@ -120,7 +146,7 @@ const Navbar = () => {
   return (
     <nav className="navbar navbar-expand-lg">
       <div className="container">
-        <Link className="navbar-brand fs-3 fw-bold" to="/">
+        <Link className="navbar-brand fs-3 fw-bold" to="/" onClick={handleNavLinkClick}>
           <h2>metroflick</h2>
         </Link>
 
@@ -136,11 +162,21 @@ const Navbar = () => {
           <span className="navbar-toggler-icon"></span>
         </button>
 
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
+        <div 
+          className="collapse navbar-collapse" 
+          id="navbarSupportedContent"
+          ref={navbarCollapseRef}
+        >
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-            <Link className="nav-link text-light-emphasis" to="/">Movie</Link>
-            <Link className="nav-link text-light-emphasis" to="/tv">Series</Link>
-            <Link className="nav-link text-light-emphasis" to="/actors">Actor</Link>
+            <Link className="nav-link text-light-emphasis" to="/" onClick={handleNavLinkClick}>
+              Movie
+            </Link>
+            <Link className="nav-link text-light-emphasis" to="/tv" onClick={handleNavLinkClick}>
+              Series
+            </Link>
+            <Link className="nav-link text-light-emphasis" to="/actors" onClick={handleNavLinkClick}>
+              Actor
+            </Link>
           </ul>
 
           <form className="d-flex position-relative" onSubmit={handleSubmit}>
@@ -181,8 +217,8 @@ const Navbar = () => {
                         style={{ width: '25%', height: 'auto' }}
                       />
                       <div className="d-flex flex-column align-self-center text-white">
-                        <p className="ps-2 fw-semibold">{movie.title}</p>
-                        <p className="ps-2">
+                        <p className="ps-2 fw-semibold mb-1">{movie.title}</p>
+                        <p className="ps-2 mb-0 small">
                           {movie.release_date
                             ? formatReleaseDate(movie.release_date)
                             : 'Release date not available'}
@@ -200,6 +236,7 @@ const Navbar = () => {
                       onClick={() => handleResultClick(actor.id, 'actor')}
                     >
                       <img
+                        loading="lazy"
                         src={
                           actor.profile_path
                             ? `https://image.tmdb.org/t/p/w500${actor.profile_path}`
@@ -210,8 +247,8 @@ const Navbar = () => {
                         style={{ width: '25%', height: 'auto' }}
                       />
                       <div className="d-flex flex-column align-self-center text-white">
-                        <p className="ps-2 fw-semibold">{actor.name}</p>
-                        <p className="ps-2">
+                        <p className="ps-2 fw-semibold mb-1">{actor.name}</p>
+                        <p className="ps-2 mb-0 small">
                           {actor.known_for && actor.known_for.length > 0
                             ? actor.known_for[0].title
                             : 'Known for: Not available'}
@@ -229,6 +266,7 @@ const Navbar = () => {
                       onClick={() => handleResultClick(series.id, 'series')}
                     >
                       <img
+                        loading="lazy"
                         src={
                           series.poster_path
                             ? `https://image.tmdb.org/t/p/w500${series.poster_path}`
@@ -239,8 +277,8 @@ const Navbar = () => {
                         style={{ width: '25%', height: 'auto' }}
                       />
                       <div className="d-flex flex-column align-self-center text-white">
-                        <p className="ps-2 fw-semibold">{series.name}</p>
-                        <p className="ps-2">
+                        <p className="ps-2 fw-semibold mb-1">{series.name}</p>
+                        <p className="ps-2 mb-0 small">
                           {series.first_air_date
                             ? formatReleaseDate(series.first_air_date)
                             : 'Release date not available'}
