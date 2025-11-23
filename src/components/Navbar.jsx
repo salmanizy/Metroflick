@@ -11,9 +11,6 @@ const Navbar = () => {
   const inputRef = useRef(null);
   const navbarCollapseRef = useRef(null);
 
-  // ===============================
-  // Function untuk close navbar
-  // ===============================
   const closeNavbar = () => {
     const navbarCollapse = navbarCollapseRef.current;
     if (navbarCollapse && navbarCollapse.classList.contains('show')) {
@@ -24,16 +21,10 @@ const Navbar = () => {
     }
   };
 
-  // ===============================
-  // Input Change (hanya update query)
-  // ===============================
   const handleInputChange = (e) => {
     setQuery(e.target.value);
   };
 
-  // ===============================
-  // Debounce Search (350ms)
-  // ===============================
   useEffect(() => {
     if (!query.trim()) {
       setResults({ movies: [], actors: [], serieses: [] });
@@ -57,13 +48,10 @@ const Navbar = () => {
     return () => clearTimeout(delay);
   }, [query]);
 
-  // ===============================
-  // Enter Search
-  // ===============================
   const handleSearch = () => {
     if (query.trim()) {
       navigate(`/results?=${encodeURIComponent(query)}`);
-      closeNavbar(); // Close navbar setelah search
+      closeNavbar();
     }
   };
 
@@ -73,13 +61,10 @@ const Navbar = () => {
     handleSearch();
   };
 
-  // ===============================
-  // Klik hasil
-  // ===============================
   const handleResultClick = (id, type) => {
-    setResults({ movies: [], actors: [], serieses: [] }); // Clear results
-    setQuery(''); // Clear search query
-    closeNavbar(); // Close navbar
+    setResults({ movies: [], actors: [], serieses: [] });
+    setQuery('');
+    closeNavbar();
     
     if (type === 'actor') {
       navigate(`/cast/${id}`);
@@ -90,25 +75,16 @@ const Navbar = () => {
     }
   };
 
-  // ===============================
-  // Handle nav link click
-  // ===============================
   const handleNavLinkClick = () => {
     closeNavbar();
   };
 
-  // ===============================
-  // Format tahun rilis
-  // ===============================
   const formatReleaseDate = (dateString) => {
     const options = { year: 'numeric' };
     const date = new Date(dateString);
     return date.toLocaleDateString('en-ID', options).replace(/,/g, '');
   };
 
-  // ===============================
-  // Tutup autocomplete saat klik di luar
-  // ===============================
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (
@@ -125,9 +101,6 @@ const Navbar = () => {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  // ===============================
-  // Shortcut keyboard: tekan "/" fokus input
-  // ===============================
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === '/') {
@@ -140,9 +113,6 @@ const Navbar = () => {
     return () => document.removeEventListener('keydown', handleKeyDown);
   }, []);
 
-  // ===============================
-  // RETURN
-  // ===============================
   return (
     <nav className="navbar navbar-expand-lg">
       <div className="container">
