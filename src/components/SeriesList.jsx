@@ -8,63 +8,50 @@ const SeriesList = () => {
     const [popular, setPopular] = useState([]);
     const [topRated, setTopRated] = useState([]);
     const [nowAiring, setNowAiring] = useState([]);
-
     const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        const getSeries = async () => {
-            const popularSeries = await fetchPopularSeries();
-            setPopular(popularSeries);
-            setLoading(false);
-        };
-        getSeries();
-    }, []);
-
+    // Set document title
     useEffect(() => {
         document.title = "Metroflick | Series";
-    });
+    }, []);
 
+    // Fetch all series data in one useEffect
     useEffect(() => {
-        const getTopRatedSeries = async () => {
+        const getAllSeries = async () => {
             try {
-                const data = await fetchTopRatedSeries();
-                setTopRated(data.results);
+                setLoading(true);
+                
+                // Fetch all data in parallel
+                const [popularData, topRatedData, nowAiringData] = await Promise.all([
+                    fetchPopularSeries(),
+                    fetchTopRatedSeries(),
+                    fetchNowAiringSeries()
+                ]);
+
+                // Set state with shuffled data
+                setPopular(popularData);
+                setTopRated(topRatedData.results || topRatedData);
+                setNowAiring(shuffleArray(nowAiringData.results || nowAiringData));
+                
             } catch (error) {
-                console.error("Error fetching top-rated series:", error);
+                console.error("Error fetching series:", error);
             } finally {
                 setLoading(false);
             }
         };
 
-        getTopRatedSeries();
+        getAllSeries();
     }, []);
 
-    useEffect(() => {
-        const getNowAiringSeries = async () => {
-            try {
-                const data = await fetchNowAiringSeries();
-                setNowAiring(data.results);
-            } catch (error) {
-                console.error("Error fetching now airing series:", error);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        getNowAiringSeries();
-    }, []);
-
+    // Shuffle function (moved outside to avoid recreation)
     const shuffleArray = (array) => {
-        return array.sort(() => Math.random() - 0.5);
+        const shuffled = [...array]; // Create copy to avoid mutating original
+        for (let i = shuffled.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+        }
+        return shuffled;
     };
-
-    if (loading) return (  
-        <div className="d-flex justify-content-center align-items-center" style={{ height: '100vh' }}>  
-            <div className="spinner-border text-dark" role="status">  
-                <span className="visually-hidden">Loading...</span>  
-            </div>  
-        </div>  
-    );      
 
     const formatFirstAirDate = (dateString) => {
         const options = { year: 'numeric' };
@@ -72,29 +59,41 @@ const SeriesList = () => {
         return date.toLocaleDateString('en-ID', options).replace(/,/g, '');
     };
 
+    if (loading) {
+        return (
+            <div className="d-flex justify-content-center align-items-center" style={{ height: '100vh' }}>
+                <div className="spinner-border text-dark" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                </div>
+            </div>
+        );
+    }
+
     return (
         <>
-            <Carousel
-                title="Now Showing Series"
-                data={shuffleArray(nowAiring)}
-                formatDate={formatFirstAirDate}
-                loading={loading}
-                linkPrefix="/tv"
-            />
-            <Carousel
-                title="Popular Series"
-                data={shuffleArray(popular)}
-                formatDate={formatFirstAirDate}
-                loading={loading}
-                linkPrefix="/tv"
-            />
-            <Carousel
-                title="Top Rated Series"
-                data={shuffleArray(topRated)}
-                formatDate={formatFirstAirDate}
-                loading={loading}
-                linkPrefix="/tv"
-            />
+            <div className="container">
+                <Carousel
+                    title="Now Airing Series"
+                    data={nowAiring}
+                    formatDate={formatFirstAirDate}
+                    loading={false}
+                    linkPrefix="/tv"
+                />
+                <Carousel
+                    title="Popular Series"
+                    data={popular}
+                    formatDate={formatFirstAirDate}
+                    loading={false}
+                    linkPrefix="/tv"
+                />
+                <Carousel
+                    title="Top Rated Series"
+                    data={topRated}
+                    formatDate={formatFirstAirDate}
+                    loading={false}
+                    linkPrefix="/tv"
+                />
+            </div>
             <Footer className="mt-4" />
         </>
     );

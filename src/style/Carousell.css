@@ -1,0 +1,190 @@
+.carousel-section {
+    margin-bottom: 3rem;
+    overflow: hidden;
+}
+
+.category-title {
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: #252525 !important;
+    letter-spacing: -0.5px;
+}
+
+.carousel-controls {
+    gap: 0.5rem;
+}
+
+.btn-carousel {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid rgba(0, 0, 0, 0.3);
+    background: rgba(58, 58, 58, 0.8);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.btn-carousel:hover {
+    background: rgba(255, 255, 255, 0.9);
+    color: black;
+    border-color: white;
+}
+
+.btn-carousel i {
+    font-size: 1.2rem;
+}
+
+.carousel-wrapper {
+    margin: 0 -0.5rem;
+}
+
+.netflix-swiper {
+    padding: 0.5rem 0;
+    overflow: visible;
+}
+
+.netflix-swiper .swiper-slide {
+    height: auto;
+}
+
+.movie-card-link {
+    text-decoration: none;
+    display: block;
+}
+
+.movie-card {
+    position: relative;
+    border-radius: 6px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    aspect-ratio: 2/3;
+}
+
+.movie-poster {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border-radius: 6px;
+}
+
+.poster-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: all 0.4s ease;
+    display: block;
+}
+
+.poster-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0.9) 0%,
+        rgba(0, 0, 0, 0.6) 30%,
+        transparent 60%
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    display: flex;
+    align-items: flex-end;
+    padding: 1rem;
+}
+
+.overlay-content {
+    width: 100%;
+}
+
+.movie-title-overlay {
+    color: white;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin: 0 0 0.25rem 0;
+    line-height: 1.2;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.movie-year {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+/* Hover effects for desktop */
+@media (min-width: 768px) {
+    .movie-card:hover {
+        transform: scale(1.05);
+        z-index: 10;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+    }
+
+    .movie-card:hover .poster-img {
+        transform: scale(1.1);
+    }
+
+    .movie-card:hover .poster-overlay {
+        opacity: 1;
+    }
+}
+
+/* Mobile optimizations */
+@media (max-width: 767px) {
+    .category-title {
+        font-size: 1.1rem;
+    }
+
+    .carousel-section {
+        margin-bottom: 2rem;
+    }
+
+    .movie-card {
+        border-radius: 4px;
+    }
+
+    .poster-img {
+        border-radius: 4px;
+    }
+
+    /* Show overlay on tap for mobile */
+    .movie-card:active .poster-overlay {
+        opacity: 1;
+    }
+
+    .movie-card:active {
+        transform: scale(0.98);
+    }
+}
+
+/* Extra small mobile */
+@media (max-width: 375px) {
+    .category-title {
+        font-size: 1rem;
+    }
+
+    .movie-title-overlay {
+        font-size: 0.8rem;
+    }
+
+    .movie-year {
+        font-size: 0.7rem;
+    }
+}
+
+@media (max-width: 767px) {
+    .carousel-wrapper {
+        margin: 0 -1rem;
+        padding: 0 1rem;
+    }
+}

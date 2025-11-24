@@ -138,10 +138,10 @@ const CastDetail = () => {
                     </div>
                 </div>
     
-                <h2 className="mt-4 mt-md-5 mb-3 fs-4 fs-md-3 fs-lg-2">Movies</h2>    
+                <h2 className="mt-4 mt-md-5 mb-3 fs-4 fs-md-3 fs-lg-2 text-light title">Movies</h2>    
                 <div className="row g-2 g-md-3">    
                     {movies.map((movie, index) => (    
-                        <div className="col-6 col-sm-4 col-md-3 col-lg-2" key={`movie-${movie.id}-${index}`}>    
+                        <div className="col-4 col-sm-4 col-md-3 col-lg-2" key={`movie-${movie.id}-${index}`}>    
                             <Link to={`/movie/${movie.id}`} className="card bg-dark">  
                                 <div className="bg-dark text-white">    
                                     <img
@@ -151,8 +151,8 @@ const CastDetail = () => {
                                         className="card-img-top"    
                                     />    
                                     <div className="card-body">   
-                                        <h5 className="card-title text-truncate text-nowrap">{movie.title}</h5>    
-                                        <p className="card-text text-truncate text-white-50 text-nowrap font-monospace">{movie.release_date ? formatReleaseDate(movie.release_date) : 'Release date not available'}</p>    
+                                        <h5 className="card-title text-truncate text-nowrap fs-6 fs-md-5 fs-lg-4">{movie.title}</h5>    
+                                        <p className="card-text text-truncate text-white-50 text-nowrap font-monospace fs-7 fs-md-6 fs-lg-5">{movie.release_date ? formatReleaseDate(movie.release_date) : 'Release date not available'}</p>    
                                     </div>    
                                 </div>   
                             </Link>   
@@ -160,10 +160,10 @@ const CastDetail = () => {
                     ))}    
                 </div>    
     
-                <h2 className="mt-4 mt-md-5 mb-3 fs-4 fs-md-3 fs-lg-2">Series</h2>  
+                <h2 className="mt-4 mt-md-5 mb-3 fs-4 fs-md-3 fs-lg-2 text-light title">Series</h2>  
                 <div className="row g-2 g-md-3">  
                     {series.map((series, index) => (  
-                        <div className="col-6 col-sm-4 col-md-3 col-lg-2" key={`series-${series.id}-${index}`}>      
+                        <div className="col-4 col-sm-4 col-md-3 col-lg-2" key={`series-${series.id}-${index}`}>      
                             <Link to={`/tv/${series.id}`} className="card bg-dark">    
                                 <div className="bg-dark text-white">      
                                     <img
@@ -173,8 +173,8 @@ const CastDetail = () => {
                                         className="card-img-top"      
                                     />      
                                     <div className="card-body">     
-                                        <h5 className="card-title text-truncate text-nowrap">{series.name}</h5>  
-                                        <p className="card-text text-truncate text-white-50 text-nowrap font-monospace">{series.first_air_date ? formatReleaseDate(series.first_air_date) : 'Release date not available'}</p>   
+                                        <h5 className="card-title text-truncate text-nowrap fs-6 fs-md-5 fs-lg-4">{series.name}</h5>  
+                                        <p className="card-text text-truncate text-white-50 text-nowrap font-monospace fs-7 fs-md-6 fs-lg-5">{series.first_air_date ? formatReleaseDate(series.first_air_date) : 'Release date not available'}</p>   
                                     </div>      
                                 </div>     
                             </Link>     

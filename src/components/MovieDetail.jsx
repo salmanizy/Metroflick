@@ -149,10 +149,10 @@ const MovieDetail = () => {
     
 
                 <div className="mb-4 mb-md-5">      
-                    <h2 className="mb-3 mt-4 mt-md-5 fs-4 fs-md-3 fs-lg-2">Cast</h2>
+                    <h2 className="mb-3 mt-4 mt-md-5 fs-4 fs-md-3 fs-lg-2 text-light title">Cast</h2>
                     <div className="row g-2 g-md-3">
                         {cast.map((actor) => (        
-                            <div className="col-6 col-sm-4 col-md-3 col-lg-2" key={actor.id}>      
+                            <div className="col-4 col-sm-4 col-md-3 col-lg-2" key={actor.id}>      
                                 <Link to={`/cast/${actor.id}`} className="card bg-dark text-decoration-none h-100">      
                                     <img
                                         loading="lazy"
@@ -177,10 +177,10 @@ const MovieDetail = () => {
                 
                 {crew.length > 0 && (
                     <div className="mb-4 mb-md-5">
-                        <h2 className="mb-3 fs-4 fs-md-3 fs-lg-2">Crews</h2>
+                        <h2 className="mb-3 fs-4 fs-md-3 fs-lg-2 text-light title">Crews</h2>
                         <div className="row g-2 g-md-3">
                             {crew.map(person => (
-                                <div key={person.id} className="col-6 col-sm-4 col-md-3 col-lg-2">
+                                <div key={person.id} className="col-4 col-sm-4 col-md-3 col-lg-2">
                                     <Link to={`/crew/${person.id}`} className="card bg-dark text-decoration-none h-100">
                                         <img
                                             loading="lazy"
@@ -206,10 +206,10 @@ const MovieDetail = () => {
 
                 {soundCrew.length > 0 && (
                     <div className="mb-4 mb-md-5">
-                        <h2 className="mb-3 fs-4 fs-md-3 fs-lg-2">Sound Crew</h2>
+                        <h2 className="mb-3 fs-4 fs-md-3 fs-lg-2 text-light title">Sound Crew</h2>
                         <div className="row g-2 g-md-3">
                             {soundCrew.map((member) => (
-                                <div className="col-6 col-sm-4 col-md-3 col-lg-2" key={member.id}>
+                                <div className="col-4 col-sm-4 col-md-3 col-lg-2" key={member.id}>
                                     <Link to={`/crew/${member.id}`} className="card bg-dark text-decoration-none h-100">
                                         <img
                                             loading="lazy"
@@ -234,11 +234,11 @@ const MovieDetail = () => {
                 )}
 
                 <div className="mb-4 mb-md-5">
-                    <h2 className="mb-3 fs-4 fs-md-3 fs-lg-2">Similar Movies</h2>
+                    <h2 className="mb-3 fs-4 fs-md-3 fs-lg-2 text-light title">Similar Movies</h2>
                     {similarMovies.length > 0 ? (
                         <div className="row g-2 g-md-3">
                             {similarMovies.slice(0, 6).map((similar) => (  
-                                <div className="col-6 col-sm-4 col-md-3 col-lg-2" key={similar.id}>  
+                                <div className="col-4 col-sm-4 col-md-3 col-lg-2" key={similar.id}>  
                                     <Link to={`/movie/${similar.id}`} className="card bg-dark text-decoration-none h-100">  
                                         <img
                                             loading="lazy"
@@ -271,7 +271,7 @@ const MovieDetail = () => {
             
                 {reviews.length > 0 ? (
                     <div className="mb-4">
-                        <h2 className="mb-3 fs-4 fs-md-3 fs-lg-2">Reviews</h2>
+                        <h2 className="mb-3 fs-4 fs-md-3 fs-lg-2 text-light title">Reviews</h2>
                         {reviews.map((review) => (
                             <div className="mb-3" key={review.id}>
                                 <div className="card text-bg-dark">

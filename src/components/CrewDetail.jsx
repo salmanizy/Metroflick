@@ -104,14 +104,14 @@ const CrewDetail = () => {
 
                 {movies.length > 0 && (
                     <div className="row g-2 g-md-3">
-                    <h2 className="mt-4 mt-md-5 mb-3 fs-4 fs-md-3 fs-lg-2">Movies</h2>
+                    <h2 className="mt-4 mt-md-5 mb-3 fs-4 fs-md-3 fs-lg-2 text-light title">Movies</h2>
                         {movies.map((movie) => (
-                            <div className="col-6 col-sm-4 col-md-3 col-lg-2" key={`movie-${movie.id}`}>
+                            <div className="col-4 col-sm-4 col-md-3 col-lg-2" key={`movie-${movie.id}`}>
                                 <Link to={`/movie/${movie.id}`} className="card bg-dark">
                                     <img loading="lazy" src={movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : 'https://placehold.co/500x750/242424/454545?text=No+Image'} alt={movie.title} className="card-img-top" />
                                     <div className="card-body">
-                                        <h5 className="card-title text-truncate text-white text-nowrap">{movie.title}</h5>
-                                        <p className="card-text text-truncate text-white-50 text-nowrap font-monospace">{movie.job}</p>
+                                        <h5 className="card-title text-truncate text-white text-nowrap fs-6 fs-md-5 fs-lg-4">{movie.title}</h5>
+                                        <p className="card-text text-truncate text-white-50 text-nowrap font-monospace fs-7 fs-md-6 fs-lg-5">{movie.job}</p>
                                     </div>
                                 </Link>
                             </div>
@@ -121,14 +121,14 @@ const CrewDetail = () => {
 
                 {series.length > 0 && (
                     <div className="row g-2 g-md-3">
-                        <h2 className="mt-4 mt-md-5 mb-3 fs-4 fs-md-3 fs-lg-2">Series</h2>
+                        <h2 className="mt-4 mt-md-5 mb-3 fs-4 fs-md-3 fs-lg-2 text-light title">Series</h2>
                         {series.map((show) => (
-                            <div className="col-6 col-sm-4 col-md-3 col-lg-2" key={`series-${show.id}`}>
+                            <div className="col-4 col-sm-4 col-md-3 col-lg-2" key={`series-${show.id}`}>
                                 <Link to={`/tv/${show.id}`} className="card bg-dark">
                                     <img loading="lazy" src={show.poster_path ? `https://image.tmdb.org/t/p/w500${show.poster_path}` : 'https://placehold.co/500x750/242424/454545?text=No+Image'} alt={show.name} className="card-img-top" />
                                     <div className="card-body">
-                                        <h5 className="card-title text-truncate text-white text-nowrap">{show.name}</h5>
-                                        <p className="card-text text-truncate text-white-50 text-nowrap font-monospace">{show.job}</p>
+                                        <h5 className="card-title text-truncate text-white text-nowrap fs-6 fs-md-5 fs-lg-4">{show.name}</h5>
+                                        <p className="card-text text-truncate text-white-50 text-nowrap font-monospace fs-7 fs-md-6 fs-lg-5">{show.job}</p>
                                     </div>
                                 </Link>
                             </div>

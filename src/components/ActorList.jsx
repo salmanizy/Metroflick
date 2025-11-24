@@ -48,14 +48,14 @@ const ActorList = () => {
         <>
             <div className="container">    
                 <div className='row'>
-                    <h2 className="col-sm-6 col-12 mt-4 category text-light-emphasis d-flex justify-content-md-start justify-content-center">Popular Actors</h2>
+                    <h2 className="col-sm-6 col-12 mt-4 category text-light d-flex justify-content-md-start justify-content-center title">Popular Actors</h2>
                     <div className="col-sm-6 col-12 d-flex justify-content-md-end justify-content-center">
                         <Pagination currentPage={currentPage} totalPages={totalPages} handlePageChange={handlePageChange}/> 
                     </div>
                 </div> 
                 <div className="row g-2 g-md-3">    
                     {popularActors.map(actor => (    
-                        <div className="col-6 col-sm-6 col-md-3 col-lg-3" key={actor.id}>    
+                        <div className="col-6 col-sm-4 col-md-3 col-lg-3" key={actor.id}>    
                             <Link to={`/cast/${actor.id}`} className='card bg-dark'>    
                                 <img
                                     loading="lazy"
