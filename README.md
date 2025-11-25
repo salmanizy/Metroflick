@@ -76,9 +76,6 @@
 1. **Clone the repository**
 ```bash
 git clone https://github.com/salmanizy/Metroflick.git
-```bash
 cd Metroflick
-```bash
 npm install
-```bash
 npm run dev
