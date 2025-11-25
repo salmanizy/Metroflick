@@ -9,7 +9,7 @@
 [![Vite](https://img.shields.io/badge/Vite-5.x-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
 [![Bootstrap](https://img.shields.io/badge/Bootstrap-5.x-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white)](https://getbootstrap.com/)
 
-**[🚀 View Live Demo](https://metroflick.vercel.app)** • **[📖 Documentation](#features)** • **[🐛 Report Bug](https://github.com/yourusername/metroflick/issues)**
+**[🚀 View Live Demo](https://metroflick.vercel.app)**
 
 </div>
 
@@ -75,3 +75,10 @@
 
 1. **Clone the repository**
 ```bash
+git clone https://github.com/salmanizy/Metroflick.git
+```bash
+cd Metroflick
+```bash
+npm install
+```bash
+npm run dev
